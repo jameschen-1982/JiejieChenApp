@@ -10,7 +10,7 @@ import {Title} from "@angular/platform-browser";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title: string = "Jiejie (James) Chen - Team Lead, Application Architect, Full Stack Software Developer";
+  title: string = "James Chen - Team Lead, Application Architect, Full Stack Software Developer - 0430 227 759";
 
   constructor(private titleService:Title) {
     this.titleService.setTitle(this.title);
