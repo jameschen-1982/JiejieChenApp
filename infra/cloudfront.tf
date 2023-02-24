@@ -68,6 +68,29 @@ resource "aws_cloudfront_distribution" "website_distribution" {
     smooth_streaming       = false
   }
 
+   # Cache behavior with precedence 0
+  ordered_cache_behavior {
+    path_pattern     = "/"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id = "HA-website"
+
+    forwarded_values {
+      query_string = false
+      headers      = ["Origin"]
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
