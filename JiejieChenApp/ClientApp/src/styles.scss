@@ -57,7 +57,10 @@ $input-border-width: 2px;
 $input-box-shadow: none;
 
 
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+
+@import "~bootstrap-icons/font/bootstrap-icons.scss";
+
 
 /* Buttons */
 /* Inputs */
