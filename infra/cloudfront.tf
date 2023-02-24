@@ -74,19 +74,7 @@ resource "aws_cloudfront_distribution" "website_distribution" {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "HA-website"
-
-    forwarded_values {
-      query_string = false
-      headers      = ["Origin"]
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
+    cache_policy_id        = data.aws_cloudfront_cache_policy.no_cache_policy.id
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
   }
@@ -108,4 +96,8 @@ resource "aws_cloudfront_distribution" "website_distribution" {
 
 data "aws_cloudfront_cache_policy" "cache_policy" {
   name = "Managed-CachingOptimized"
+}
+
+data "aws_cloudfront_cache_policy" "no_cache_policy" {
+  name = "Managed-CachingDisabled"
 }
