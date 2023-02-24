@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Jiejie (James) Chen - Lead Full Stack Web Developer'`, () => {
+  it(`should have as title 'James Chen - Team Lead, Application Architect, Full Stack Software Developer - 0430 227 759'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Jiejie (James) Chen - Lead Full Stack Web Developer');
+    expect(app.title).toEqual('James Chen - Team Lead, Application Architect, Full Stack Software Developer - 0430 227 759');
   });
 
   it('should render title', () => {
