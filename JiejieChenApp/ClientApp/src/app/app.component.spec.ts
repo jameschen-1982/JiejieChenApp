@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'jiejiechenapp'`, () => {
+  it(`should have as title 'Jiejie (James) Chen - Lead Full Stack Web Developer'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('jiejiechenapp');
+    expect(app.title).toEqual('Jiejie (James) Chen - Lead Full Stack Web Developer');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('jiejiechenapp app is running!');
+    expect(compiled.querySelector('.about-section h2').textContent).toContain('About Me');
   });
 });
