@@ -68,8 +68,8 @@ jobs:
 
     - name: Build
       working-directory: ./JiejieChenApp/ClientApp
-      run: npm run build:prod
+      run: npm run prerender 
 
     - name: Deploy
       if: success()
-      run: aws s3 sync ./JiejieChenApp/wwwroot s3://www.jiejiechen.com
+      run: aws s3 sync ./JiejieChenApp/ClientApp/dist/jiejiechenapp/browser s3://www.jiejiechen.com
