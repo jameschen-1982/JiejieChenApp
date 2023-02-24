@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DateTime, Duration } from 'luxon';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,11 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Jiejie (James) Chen - Lead Full Stack Web Developer';
+  title: string = "Jiejie (James) Chen - Lead Full Stack Web Developer";
+
+  constructor(private titleService:Title) {
+    this.titleService.setTitle(this.title);
+  }
 
   get age() {
     return new Date().getFullYear() - 1982;
