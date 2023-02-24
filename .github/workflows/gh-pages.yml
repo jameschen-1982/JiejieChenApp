@@ -12,6 +12,13 @@ jobs:
       id-token: write
       contents: read
     steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::773631419510:role/github-action-role
+        role-session-name: githubactionsession
+        aws-region: ap-southeast-2
+
     - name: Checkout
       uses: actions/checkout@v2
 
