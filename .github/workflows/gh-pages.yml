@@ -46,7 +46,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::773631419510:role/github-action-role
+        role-to-assume:  ${{ secrets.ROLE_TO_ASSUME }}
         role-session-name: githubactionsession
         aws-region: ap-southeast-2
 
@@ -72,4 +72,8 @@ jobs:
 
     - name: Deploy
       if: success()
-      run: aws s3 sync ./JiejieChenApp/ClientApp/dist/jiejiechenapp/browser s3://www.jiejiechen.com
+      run: aws s3 sync ./JiejieChenApp/ClientApp/dist/jiejiechenapp/browser s3://${{env.S3_BUCKET_NAME}}
+
+    - name: Deploy
+      if: success()
+      run: aws create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
