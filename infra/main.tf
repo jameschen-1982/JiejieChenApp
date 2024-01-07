@@ -24,7 +24,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "c2j"
-    key    = "terraform-states/www.jiejiechen.com-prod/"
+    key    = "terraform-states/www.jiejiechen.com-prod"
     region = "ap-southeast-2"
   }
 }
