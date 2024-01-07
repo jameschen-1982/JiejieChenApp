@@ -5,14 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production",
+    "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
-    "dev:ssr": "ng run jiejiechenapp:serve-ssr",
-    "serve:ssr": "node dist/jiejiechenapp/server/main.js",
-    "build:ssr": "ng build --configuration production && ng run jiejiechenapp:server:production",
-    "prerender": "ng run jiejiechenapp:prerender"
+    "serve:ssr:testng": "node dist/testng/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -28,7 +25,7 @@
     "@angular/ssr": "^17.0.9",
     "@types/luxon": "^1.27.1",
     "bootstrap": "^5.0.2",
-    "bootstrap-icons": "^1.10.3",
+    "bootstrap-icons": "^1.11.3",
     "express": "^4.15.2",
     "luxon": "^2.0.1",
     "rxjs": "~6.6.0",

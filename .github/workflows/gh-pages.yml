@@ -68,7 +68,7 @@ jobs:
 
     - name: Build
       working-directory: ./JiejieChenApp/ClientApp
-      run: npm run prerender 
+      run: npm run build 
 
     - name: Deploy
       if: success()
