@@ -1,5 +1,5 @@
 resource "aws_apigatewayv2_api" "hello-world" {
-  name          = "hello-world-2"
+  name          = "hello-world"
   protocol_type = "HTTP"
 }
 
