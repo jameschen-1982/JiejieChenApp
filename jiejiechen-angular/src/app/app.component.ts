@@ -1,0 +1,39 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { DateTime, Duration } from 'luxon';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import {Title} from "@angular/platform-browser";
+import {CommonModule} from "@angular/common";
+import {RouterOutlet} from "@angular/router";
+import {StrapiCmsService} from "./services/strapi-cms.service";
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  title: string = "James Chen - Team Lead, Application Architect, Full Stack Software Developer - 0430 227 759";
+  homePageContent = this.strapiCmsService.getHomePageContent();
+
+  constructor(private titleService:Title, private strapiCmsService: StrapiCmsService) {
+    this.titleService.setTitle(this.title);
+  }
+
+  get age() {
+    return new Date().getFullYear() - 1982;
+  }
+
+  get currentEmploymentLength() {
+    const now = DateTime.now();
+    const then = DateTime.fromISO('2021-10-01');
+    const diff = now.diff(then, ['years', 'months', 'days']).toObject();
+    return `${diff.years} year ${diff.months} months`;
+  }
+
+  exportAsPDF() {
+    window.print();
+  }
+}
