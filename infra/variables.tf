@@ -35,10 +35,6 @@ variable "cloudfront_viewer_protocol_policy" {
   default     = "redirect-to-https"
 }
 
-variable "acm_certificate_arn" {
-  type        = string
-  description = "certificate ARN for the domain"
-}
 
 variable "default_tags" {
   type        = map(string)
@@ -46,10 +42,27 @@ variable "default_tags" {
   default     = {}
 }
 
-variable "api_domain_name" {
-  type        = string
+variable "main_domain_name" {
+  type = string
 }
 
+variable "cms_domain_name" {
+  type = string
+}
+
+
 variable "api_domain_certificate_arn" {
-  type        = string
+  type = string
+}
+
+variable "cms_database_host" {
+  type = string
+}
+
+variable "cms_database_secret_name" {
+  type = string
+}
+
+variable "env" {
+  default = "prod"
 }

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_skill_bar_skill_bars",
+  "info": {
+    "displayName": "skillBar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "skill": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

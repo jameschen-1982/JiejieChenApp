@@ -1,0 +1,27 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+
+.skills-section {
+  list-style-position: inside;
+}
+.print-only {
+  display: none;
+}
+
+@media print {
+  .headings {
+    color: $dark;
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .about-container {
+    display: block;
+    height: auto;
+    column-gap: 0;
+  }
+  .about-paragraph {
+    width: 100%;
+  }
+}

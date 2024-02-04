@@ -59,21 +59,21 @@ jobs:
         node-version: 20
 
     - name: Install dependencies
-      working-directory: ./JiejieChenApp/ClientApp
+      working-directory: ./JiejieChenApp/jiejiechen-angular
       run: npm install
 
     - name: Run tests
-      working-directory: ./JiejieChenApp/ClientApp
+      working-directory: ./JiejieChenApp/jiejiechen-angular
       run: npm run test:headless
 
     - name: Build
-      working-directory: ./JiejieChenApp/ClientApp
+      working-directory: ./JiejieChenApp/jiejiechen-angular
       run: npm run build 
-
-    - name: Deploy
-      if: success()
-      run: aws s3 sync ./JiejieChenApp/ClientApp/dist/jiejiechenapp/browser s3://${{vars.S3_BUCKET_NAME}}
-
-    - name: Deploy
-      if: success()
-      run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
+#
+#    - name: Deploy
+#      if: success()
+#      run: aws s3 sync ./JiejieChenApp/ClientApp/dist/jiejiechenapp/browser s3://${{vars.S3_BUCKET_NAME}}
+#
+#    - name: Deploy
+#      if: success()
+#      run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"

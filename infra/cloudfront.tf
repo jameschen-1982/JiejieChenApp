@@ -68,12 +68,12 @@ resource "aws_cloudfront_distribution" "website_distribution" {
     smooth_streaming       = false
   }
 
-   # Cache behavior with precedence 0
+  # Cache behavior with precedence 0
   ordered_cache_behavior {
-    path_pattern     = "/"
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "HA-website"
+    path_pattern           = "/"
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    cached_methods         = ["GET", "HEAD", "OPTIONS"]
+    target_origin_id       = "HA-website"
     cache_policy_id        = data.aws_cloudfront_cache_policy.no_cache_policy.id
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
@@ -86,9 +86,7 @@ resource "aws_cloudfront_distribution" "website_distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = var.acm_certificate_arn
-    ssl_support_method             = "sni-only"
-    cloudfront_default_certificate = false
+    cloudfront_default_certificate = true
     minimum_protocol_version       = "TLSv1.2_2021"
   }
 }
