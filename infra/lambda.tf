@@ -25,14 +25,21 @@ resource "aws_iam_role_policy_attachment" "handler_lambda_policy" {
 }
 
 ### JiejieChen Angular ###
+resource "aws_s3_object" "jiejiechen_angular_artifact" {
+  bucket = aws_s3_bucket.lambda_bucket.id
+  key    = "jiejiechen-angular.zip"
+  source = "${path.module}/../jiejiechen-angular/jiejiechen-angular.zip"
+  etag   = filemd5(data.archive_file.html2docx_archive.output_path)
+}
 
 resource "aws_lambda_function" "jiejiechen_angular" {
   function_name = "jiejiechenapp-angular"
-
+  s3_bucket = aws_s3_bucket.lambda_bucket.id
+  s3_key    = aws_s3_object.jiejiechen_angular_artifact.key
+  runtime     = "nodejs20.x"
+  handler     = "lambda.handler"
   role         = aws_iam_role.handler_lambda_exec.arn
   timeout      = 30 # seconds
-  image_uri    = "${aws_ecr_repository.jiejiechen-angular.repository_url}:latest"
-  package_type = "Image"
   memory_size  = 512
 }
 
