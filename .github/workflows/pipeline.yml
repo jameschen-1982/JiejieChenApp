@@ -60,16 +60,16 @@ jobs:
         node-version: 20
 
     - name: Install dependencies
-      working-directory: ./JiejieChenApp/jiejiechen-angular
-      run: npm install
+      working-directory: jiejiechen-angular
+      run: yarn install --frozen-lockfile
 
     - name: Run tests
-      working-directory: ./JiejieChenApp/jiejiechen-angular
-      run: npm run test:headless
+      working-directory: jiejiechen-angular
+      run: yarn test:headless
 
     - name: Build
-      working-directory: ./JiejieChenApp/jiejiechen-angular
-      run: npm run build 
+      working-directory: jiejiechen-angular
+      run: yarn build 
 #
 #    - name: Deploy
 #      if: success()
