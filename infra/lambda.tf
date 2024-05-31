@@ -28,7 +28,7 @@ resource "aws_iam_role_policy_attachment" "handler_lambda_policy" {
 resource "aws_s3_object" "jiejiechen_angular_artifact" {
   bucket = aws_s3_bucket.lambda_bucket.id
   key    = "jiejiechen-angular.zip"
-  source = "${path.module}/../jiejiechen-angular/jiejiechen-angular.zip"
+  source = "${path.module}/../dist/jiejiechen-angular.zip"
   etag   = filemd5(data.archive_file.html2docx_archive.output_path)
 }
 
