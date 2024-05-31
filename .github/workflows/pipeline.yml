@@ -65,7 +65,7 @@ jobs:
       
     - name: Save run-time dependencies for packaging
       working-directory: jiejiechen-angular
-      run: cp node_modules ./dist
+      run: cp -r node_modules ./dist
 
     - name: Install other dependencies
       working-directory: jiejiechen-angular
