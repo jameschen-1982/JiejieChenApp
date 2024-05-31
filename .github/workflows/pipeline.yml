@@ -77,6 +77,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - uses: actions/download-artifact@master
+        with:
+          name: jiejiechen_angular
+          path: dist
+
       - name: Verify Terraform version
         run: terraform --version
 
