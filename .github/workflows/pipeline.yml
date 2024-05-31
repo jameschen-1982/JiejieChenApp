@@ -88,7 +88,7 @@ jobs:
       with:
         name: jiejiechen_angular
         path: |
-          ../package
+          package
 #
 #    - name: Deploy
 #      if: success()
