@@ -38,7 +38,7 @@ jobs:
       working-directory: ./infra
       run: terraform apply -auto-approve -var-file=main.tfvars -input=false
       
-  deploy_frontend:
+  deploy_angular:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
