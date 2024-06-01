@@ -93,6 +93,9 @@ jobs:
         with:
           name: html2docx
           path: package
+          
+      - name: Show directory
+        run: ls -la
 
       - name: Verify Terraform version
         run: terraform --version
