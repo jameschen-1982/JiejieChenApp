@@ -31,7 +31,6 @@ jobs:
         working-directory: jiejiechen-angular
         run: |
           yarn install --frozen-lockfile
-#          yarn test:headless
           yarn build
 
       - name: Save run-time dependencies for packaging
