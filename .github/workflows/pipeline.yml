@@ -10,9 +10,6 @@ jobs:
 
   build_angular:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -54,15 +51,19 @@ jobs:
 
   build_html2docx:
     runs-on: ubuntu-latest
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 8
       - name: Install dependencies
+        working-directory: ./services/src/JiejieChenApp.HtmlDocx
         run: dotnet restore
       - name: Build
+        working-directory: ./services/src/JiejieChenApp.HtmlDocx
         run: dotnet build --configuration Release --no-restore
 
   deploy_infra:
