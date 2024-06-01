@@ -9,23 +9,15 @@ resource "aws_lambda_function" "html2docx" {
   timeout     = 30 # seconds
   memory_size = 512
 
-  source_code_hash = data.archive_file.html2docx_archive.output_base64sha256
+  # source_code_hash = data.archive_file.html2docx_archive.output_base64sha256
 
   role = aws_iam_role.html2docx_lambda_role.arn
-}
-
-data "archive_file" "html2docx_archive" {
-  type        = "zip"
-  source_dir  = "${path.module}/../services/JiejieChenApp.HtmlDocx/src/JiejieChenApp.HtmlDocx/bin/Release/net8.0/linux-x64/publish"
-  output_path = "${path.module}/../dist/html2docx.zip"
-
 }
 
 resource "aws_s3_object" "html2docx_artifact" {
   bucket = aws_s3_bucket.lambda_bucket.id
   key    = "html2docx.zip"
-  source = data.archive_file.html2docx_archive.output_path
-  etag   = filemd5(data.archive_file.html2docx_archive.output_path)
+  source = "${path.module}/../package/html2docx.zip"
 }
 
 resource "aws_iam_role" "html2docx_lambda_role" {
