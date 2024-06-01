@@ -14,13 +14,6 @@ jobs:
       id-token: write
       contents: read
     steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume:  ${{ secrets.ROLE_TO_ASSUME }}
-        role-session-name: githubactionsession
-        aws-region: ap-southeast-2
-
     - name: Checkout
       uses: actions/checkout@v2
 
@@ -57,8 +50,20 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: jiejiechen_angular
-        path: |
-          package
+        path: package
+
+  build_html2docx:
+    runs-on: ubuntu-latest
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
   deploy_infra:
     runs-on: ubuntu-latest
