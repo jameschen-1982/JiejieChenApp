@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_work_experience_work_experiences",
+  "info": {
+    "displayName": "WorkExperience",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "role": {
+      "type": "string"
+    },
+    "organisationName": {
+      "type": "string"
+    },
+    "fromDate": {
+      "type": "date"
+    },
+    "toDate": {
+      "type": "date"
+    },
+    "achievements": {
+      "type": "blocks"
+    }
+  }
+}

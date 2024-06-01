@@ -3,78 +3,111 @@ name: cicd pipeline
 on:
   push:
     branches:
-    - main
-    - api-gateway-node-container
+      - main
+      - api-gateway-node-container
 
 jobs:
-  deploy_infra:
+
+  build_angular:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install run-time dependencies
+        working-directory: jiejiechen-angular
+        run: yarn install --prod --frozen-lockfile
+
+      - name: Save run-time dependencies for packaging
+        working-directory: jiejiechen-angular
+        run: cp -R . ../package
+
+      - name: Build
+        working-directory: jiejiechen-angular
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+
+      - name: Save run-time dependencies for packaging
+        working-directory: jiejiechen-angular
+        run: cp -R dist ../package
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jiejiechen_angular
+          path: package
+
+  build_html2docx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8
+      - name: Install dependencies
+        working-directory: ./services/src/JiejieChenApp.HtmlDocx
+        run: dotnet restore
+      - name: Build
+        working-directory: ./services/src/JiejieChenApp.HtmlDocx
+        run: |
+          dotnet build --configuration Release --no-restore
+          dotnet publish -c Release -o ../../package -r linux-x64 --self-contained true 
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: html2docx
+          path: services/package
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build_angular, build_html2docx]
     permissions:
       id-token: write
       contents: read
     steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: arn:aws:iam::773631419510:role/github-action-role
-        role-session-name: githubactionsession
-        aws-region: ap-southeast-2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::773631419510:role/github-action-role
+          role-session-name: githubactionsession
+          aws-region: ap-southeast-2
 
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Verify Terraform version
-      run: terraform --version
+      - uses: actions/download-artifact@master
+        with:
+          name: jiejiechen_angular
+          path: package
 
-    - name: Terraform init
-      working-directory: ./infra
-      run: terraform init -input=false
+      - uses: actions/download-artifact@master
+        with:
+          name: html2docx
+          path: package
+          
+      - name: Show directory
+        run: ls -la
 
-    - name: Terraform validation
-      working-directory: ./infra
-      run: terraform validate
+      - name: Verify Terraform version
+        run: terraform --version
 
-    - name: Terraform apply
-      working-directory: ./infra
-      run: terraform apply -auto-approve -var-file=main.tfvars -input=false
-      
-  deploy_frontend:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume:  ${{ secrets.ROLE_TO_ASSUME }}
-        role-session-name: githubactionsession
-        aws-region: ap-southeast-2
+      - name: Terraform init
+        working-directory: ./infra
+        run: terraform init -upgrade -input=false
 
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Terraform validation
+        working-directory: ./infra
+        run: terraform validate
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 20
-
-    - name: Install dependencies
-      working-directory: ./JiejieChenApp/ClientApp
-      run: npm install
-
-    - name: Run tests
-      working-directory: ./JiejieChenApp/ClientApp
-      run: npm run test:headless
-
-    - name: Build
-      working-directory: ./JiejieChenApp/ClientApp
-      run: npm run build 
-
-    - name: Deploy
-      if: success()
-      run: aws s3 sync ./JiejieChenApp/ClientApp/dist/jiejiechenapp/browser s3://${{vars.S3_BUCKET_NAME}}
-
-    - name: Deploy
-      if: success()
-      run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
+      - name: Terraform apply
+        working-directory: ./infra
+        run: terraform apply -auto-approve -var-file=main.tfvars -input=false

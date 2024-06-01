@@ -1,0 +1,75 @@
+## TODO: V2: Rest API Gateway ###
+resource "aws_api_gateway_rest_api" "main_api_gw_v2" {
+  name = "jiejiechen-main-v2"
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+}
+#
+## The resource for the endpoint
+resource "aws_api_gateway_resource" "angular_proxy" {
+  path_part   = "{proxy+}"
+  parent_id   = aws_api_gateway_rest_api.main_api_gw_v2.root_resource_id
+  rest_api_id = aws_api_gateway_rest_api.main_api_gw_v2.id
+}
+
+## How the gateway will be interacted from client
+resource "aws_api_gateway_method" "angular_root_method" {
+  rest_api_id   = aws_api_gateway_rest_api.main_api_gw_v2.id
+  resource_id   = aws_api_gateway_rest_api.main_api_gw_v2.root_resource_id
+  http_method   = "ANY"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_method" "angular_proxy_method" {
+  rest_api_id   = aws_api_gateway_rest_api.main_api_gw_v2.id
+  resource_id   = aws_api_gateway_resource.angular_proxy.id
+  http_method   = "ANY"
+  authorization = "NONE"
+}
+
+## Integration between lambda and terraform
+resource "aws_api_gateway_integration" "angular_root_integration" {
+  rest_api_id = aws_api_gateway_rest_api.main_api_gw_v2.id
+  resource_id = aws_api_gateway_rest_api.main_api_gw_v2.root_resource_id
+  http_method = aws_api_gateway_method.angular_root_method.http_method
+  integration_http_method = "ANY"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.jiejiechen_angular.invoke_arn
+}
+
+resource "aws_api_gateway_integration" "angular_proxy_integration" {
+  rest_api_id = aws_api_gateway_rest_api.main_api_gw_v2.id
+  resource_id = aws_api_gateway_resource.angular_proxy.id
+  http_method = aws_api_gateway_method.angular_proxy_method.http_method
+  integration_http_method = "ANY"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.jiejiechen_angular.invoke_arn
+}
+
+resource "aws_lambda_permission" "api_gateway" {
+  statement_id  = "AllowExecutionFromAPIGatewayV2"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.jiejiechen_api.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.main_api_gw_v2.execution_arn}/*/*"
+}
+
+resource "aws_api_gateway_deployment" "example" {
+  rest_api_id = aws_api_gateway_rest_api.main_api_gw_v2.id
+
+  triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.main_api_gw_v2.body))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_api_gateway_stage" "example" {
+  deployment_id = aws_api_gateway_deployment.example.id
+  rest_api_id   = aws_api_gateway_rest_api.main_api_gw_v2.id
+  stage_name    = "example"
+}

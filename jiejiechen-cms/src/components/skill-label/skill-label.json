@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_skill_label_skill_labels",
+  "info": {
+    "displayName": "SkillLabel"
+  },
+  "options": {},
+  "attributes": {
+    "labelName": {
+      "type": "string"
+    }
+  }
+}
