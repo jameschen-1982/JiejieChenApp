@@ -1,0 +1,280 @@
+<header class="d-print-none">
+  <div class="container text-center text-lg-left">
+    <div class="py-3 clearfix">
+      <div class="site-nav">
+        <nav role="navigation">
+          <ul class="nav justify-content-center">
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="page-content">
+  <div class="container">
+    <div class="cover shadow-lg bg-white">
+      <div class="cover-bg p-3 p-lg-4 text-white">
+        <div class="row">
+          <div class="col-lg-4 col-md-5">
+            <div class="avatar hover-effect bg-white shadow-sm p-1">
+              <img src="https://www.jiejiechen.com/assets/images/avatar.jpg" width="200" height="200" alt="Avatar of James Chen"/>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-7 text-center text-md-start headings">
+            <h1 class="h1 mt-2">{{(homePageContent$ | async)?.data?.attributes?.name}}</h1>
+            <h2 class="h5">{{(homePageContent$ | async)?.data?.attributes?.title}}</h2>
+            <div class="d-flex flex-sm-column flex-md-row">
+              <div class="print-only d-print-inline"><span class="btn btn-light text-dark shadow-sm mt-1 me-1 text-nowrap">0430 227 759</span></div>
+              <div class="print-only d-print-inline"><span class="btn btn-light text-dark shadow-sm mt-1 me-1">c2j_4u&#64;hotmail.com</span></div>
+              <div class="d-print-none">
+                <form action="/api/download-cv" method="POST">
+                  <button class="btn btn-warning text-black shadow-sm mt-1 me-1" type="submit">Download CV</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-section pt-4 px-3 px-lg-4 mt-1">
+        <div class="row">
+          <div class="col">
+            <h2 class="h3 mb-3">{{(homePageContent$ | async)?.data?.attributes?.aboutHeading}}</h2>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap flex-column about-container">
+          <div class="about-paragraph" *ngFor="let paragraph of (homePageContent$ | async)?.data?.attributes?.aboutContent;">
+            <p>{{paragraph?.children?.at(0)?.text}}</p>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="skills-section px-3 px-lg-4">
+        <h2 class="h3 mb-3">Skills</h2>
+        <div class="row">
+          <ul>
+            <li>People management and development</li>
+            <li>SDLC best practices and processes</li>
+            <li>Agile and lean methodologies</li>
+            <li>Communication and presentation</li>
+            <li>Micro-service and serverless architecture on AWS and Azure</li>
+            <li>Common e-commerce integrations: Cloudflare, payment gateway, SSO, search, and analytics</li>
+            <li>Cyber security and DevSecOps</li>
+            <li>Infrastructure as code, Cloud, DevOps, and CICD pipelines</li>
+            <li>Back-end .NET and front-end Angular and React development</li>
+            <li>HTML5, CSS3, and headless CMS</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="d-print-none" />
+      <div class="page-break"></div>
+      <div class="work-experience-section px-3 px-lg-4">
+        <h2 class="h3 mb-2">Experience and Education</h2>
+        <div class="timeline">
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Lead Full Stack Developer <span class="text-muted h6">at Standards Australia</span>
+              </div>
+              <div class="text-muted text-small mb-2">Oct 2021 - Present ({{currentEmploymentLength}})</div>
+              <div>
+                <span class="h6">Responsibilities</span>
+                <ul>
+                  <li>Lead, manage and coach two teams of total 10 developers</li>
+                  <li>Act as technical lead and SME to ensure solutions being delivered</li>
+                  <li>Coach team members on development practices and technical difficulties</li>
+                  <li>Apply agile methodology and lean startup methodology in SDLC</li>
+                  <li>Fire fight high priority tasks, usually system reliability issues</li>
+                </ul>
+                <span class="h6">Achievements</span>
+                <ul>
+                  <li>Repeatedly built high-performing SCRUM teams</li>
+                  <li>Established cross-teams project delivery for two teams sharing three source code repositories</li>
+                  <li>Broke a 9-month waterfall project into two releases, shortening the go-live time by 3 months</li>
+                  <li>First to convert legacy cloud application into infrastructure as code</li>
+                  <li>First to establish observability in the organisation</li>
+                  <li>Implemented zero-downtime deployments</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Senior Software Engineer <span class="text-muted h6">at Everlight Radiology</span>
+              </div>
+              <div class="text-muted text-small mb-2">Mar 2020 - Oct 2021 (1 year 7 months)</div>
+              <div>
+                <ul>
+                  <li>Brought Control Centre website to live serving hospital employees across Australia and UK</li>
+                  <li>Delivered 4 major projects into production in 18 months</li>
+                  <li>Contributed ~40% of source code</li>
+                  <li>Built 2 front-end applications</li>
+                  <li>Designed and implemented an event-driven architecture</li>
+                  <li>Built 4 micro-service applications and their AWS infrastructure</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Senior Software Engineer <span class="text-muted h6">at PropertyMe Pty Ltd</span>
+              </div>
+              <div class="text-muted text-small mb-2">Jul 2019 - Mar 2020 (8 months)</div>
+              <div>
+                <ul>
+                  <li>One of the core developers for the core web applications for thousands of real estate agencies across Australia</li>
+                  <li>Identify system bottleneck and providing solutions</li>
+                  <li>Keep the system technology up-to-date</li>
+                  <li>Perform deployments</li>
+                  <li>Monitor system performance and analysing system log</li>
+                </ul>
+              </div>
+              <div class="my-4"></div>
+              <div class="h5 mb-1">Full Stack .Net Developer
+              </div>
+              <div class="text-muted text-small mb-2">Aug 2016 - Jul 2019 (2 years 11 months)</div>
+              <div>
+                <ul>
+                  <li>Develop new features and maintains the PropertyMe web applications</li>
+                  <li>Utilise AWS features whilst minimising AWS costs</li>
+                  <li>Optimise the PropertyMe application including database operations and back end services for
+                    speed, scalability and reliability</li>
+                  <li>Contribute to workshops for design of new features and system architectural changes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Developer <span class="text-muted h6">at GiveEasy Pty Ltd</span>
+              </div>
+              <div class="text-muted text-small mb-2">Apr 2012 - Jun 2016 (4 years 2 months)</div>
+              <div>
+                <ul>
+                  <li>The only developer for designing and building whole front-end and back-end website for the online payment website</li>
+                  <li>Design and build whole infrastructure to cater the growth of the business from start up</li>
+                  <li>Implement the core payment system</li>
+                  <li>Manage availability and security of the websites and online services</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">IT Developer <span class="text-muted h6">at DriveMyCar Rentals Pty Ltd</span>
+              </div>
+              <div class="text-muted text-small mb-2">Jan 2011 - Mar 2012 (1 year 2 months)</div>
+              <div>
+                <ul>
+                  <li>Develop not-at-fault-car-rental website in .NET framework</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">IT Engineer <span class="text-muted h6">at Shutters R Us Pty Ltd</span>
+              </div>
+              <div class="text-muted text-small mb-2">Sep 2010 - Dec 2010 (3 months)</div>
+              <div>
+                <ul>
+                  <li>Develop the company's branding website in PHP</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-success card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Master of Project Management <span class="text-muted h6">from the University of
+                  Sydney</span>
+              </div>
+              <div class="text-muted text-small mb-2">Jan 2010 - Dec 2010 (12 months)</div>
+              <div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Developer <span class="text-muted h6">at Shanghai SEIO Software Co., Ltd</span>
+              </div>
+              <div class="text-muted text-small mb-2">Jan 2008 - Dec 2009 (1 year 11 months)</div>
+              <div>
+                <ul>
+                  <li>Vendor developer in C++, C#, Java for clients from Japan</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-primary card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Support Engineer <span class="text-muted h6">at Shanghai Wicresoft Co., Ltd</span>
+              </div>
+              <div class="text-muted text-small mb-2">Jul 2005 - Jan 2008 (2 years 6 months)</div>
+              <div>
+                <ul>
+                  <li>Provide technical support (tier 1, tier 2) for Microsoft product customers from North America</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-card timeline-card-success card shadow-sm">
+            <div class="card-body">
+              <div class="h5 mb-1">Bachelor of Engineering <span class="text-muted h6">from Shanghai Fisheries
+                  University</span>
+              </div>
+              <div class="text-muted text-small mb-2">Graduated 2005</div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="d-print-none" />
+      <div class="portfolio-section px-3 px-lg-4 pb-2">
+        <h2 class="h3 mb-2">Portfolio</h2>
+        <div class="row">
+          <div class="col-md-12">
+            <ul>
+              <li><a target="_blank" href="https://store.standards.org.au">Standards Australia Store</a></li>
+              <li><a target="_blank" href="https://cc.everlightradiology.com">Everlight Radiology Control Centre</a></li>
+              <li><a target="_blank" href="https://app.propertyme.com">PropertyMe Web App</a></li>
+              <li><a target="_blank" href="https://giveeasy.org">GiveEasy.org</a></li>
+              <li><a target="_blank" href="https://www.jiejiechen.com">Jiejiechen.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <hr class="d-print-none" />
+      <div class="portfolio-section px-3 px-lg-4 pb-2">
+        <h2 class="h3 mb-2">Interest</h2>
+        <div class="row">
+          <div class="col-md-12">
+            <p>Aviation, swimming, golfing</p>
+          </div>
+        </div>
+      </div>
+      <hr class="d-print-none" />
+      <div class="reference-section px-3 px-lg-4 pb-2">
+        <h2 class="h3 mb-2">Reference</h2>
+        <div class="row">
+          <div class="col-md-12">
+            <p>Available upon request</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="pt-4 pb-4 text-muted text-center d-print-none">
+  <div class="container">
+    <div class="my-3">
+      <div class="footer-nav">
+        <nav role="navigation">
+          <ul class="nav">
+            <li class="mx-2"><a href="https://github.com/jameschen-1982/JiejieChenApp" target="_blank">Github</a></li>
+            <li style="margin-right: auto;"><a href="https://www.linkedin.com/in/jameschen-1982-au" target="_blank">LinkedIn</a></li>
+            <li><a href="https://www.jiejiechen.com/">www.jiejiechen.com</a>&nbsp;&copy; {{year}}</li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

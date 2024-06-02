@@ -1,0 +1,44 @@
+{
+  "kind": "singleType",
+  "collectionName": "home_pages",
+  "info": {
+    "singularName": "home-page",
+    "pluralName": "home-pages",
+    "displayName": "Home Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "aboutContent": {
+      "type": "blocks"
+    },
+    "aboutHeading": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "skillBar": {
+      "displayName": "skillBar",
+      "type": "component",
+      "repeatable": true,
+      "component": "skill-bar.skill-bar"
+    },
+    "skillLabel": {
+      "type": "component",
+      "repeatable": true,
+      "component": "skill-label.skill-label"
+    },
+    "workExperience": {
+      "type": "component",
+      "repeatable": true,
+      "component": "work-experience.work-experience"
+    }
+  }
+}

@@ -1,0 +1,129 @@
+name: cicd pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build_angular:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install run-time dependencies
+        working-directory: jiejiechen-angular
+        run: yarn install --prod --frozen-lockfile
+
+      - name: Save run-time dependencies for packaging
+        working-directory: jiejiechen-angular
+        run: cp -R . ../package
+
+      - name: Build
+        working-directory: jiejiechen-angular
+        run: |
+          yarn install --frozen-lockfile
+          yarn lint
+          yarn test:headless
+          yarn build
+
+      - name: Save run-time dependencies for packaging
+        working-directory: jiejiechen-angular
+        run: cp -R dist ../package
+
+      - name: Zip artifact
+        working-directory: ./package
+        run: zip jiejiechen-angular.zip ./* -r
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: jiejiechen_angular
+          path: package/jiejiechen-angular.zip
+
+  build_html2docx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8
+      - name: Install dependencies
+        working-directory: ./services/
+        run: dotnet restore
+      - name: Test
+        working-directory: ./services/
+        run: dotnet test
+      - name: Build
+        working-directory: ./services/src/JiejieChenApp.HtmlDocx
+        run: |
+          dotnet build --configuration Release --no-restore
+          dotnet publish -c Release -o ../../package -r linux-x64 --self-contained true
+      - name: Zip artifact
+        working-directory: ./services/package
+        run: zip html2docx.zip ./* -r
+          
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: html2docx
+          path: services/package/html2docx.zip
+  
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build_angular, build_html2docx]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::773631419510:role/github-action-role
+          role-session-name: githubactionsession
+          aws-region: ap-southeast-2
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@master
+        with:
+          path: ./package
+          merge-multiple: true
+          
+      - name: Show directory
+        run: ls ./package -la
+
+      - name: Verify Terraform version
+        run: terraform --version
+
+      - name: Terraform init
+        working-directory: ./infra
+        run: terraform init -upgrade -input=false
+
+      - name: Terraform validation
+        working-directory: ./infra
+        run: |
+          ls ../ -la
+          terraform validate
+
+      - name: Terraform apply
+        working-directory: ./infra
+        run: |
+          terraform apply -auto-approve -input=false \
+            -var main_domain_name="${{ vars.TF_VAR_MAIN_DOMAIN_NAME }}" \
+            -var cms_domain_name="${{ vars.TF_VAR_CMS_DOMAIN_NAME }}" \
+            -var api_domain_certificate_arn="${{ vars.TF_VAR_API_DOMAIN_CERTIFICATE_ARN }}" \
+            -var cms_database_host="${{ vars.TF_VAR_CMS_DATABASE_HOST }}" \
+            -var cms_database_secret_name="${{ vars.TF_VAR_CMS_DATABASE_SECRET_NAME }}"
+          
