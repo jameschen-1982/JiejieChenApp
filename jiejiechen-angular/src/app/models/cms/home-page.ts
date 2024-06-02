@@ -1,3 +1,4 @@
+/* eslint-disable */
 // To parse this data:
 //
 //   import { Convert, HomePage } from "./file";
