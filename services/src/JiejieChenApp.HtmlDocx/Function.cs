@@ -44,7 +44,7 @@ public class Functions
             Expires = _timeProvider.GetUtcNow().AddMinutes(10).DateTime
         };
 
-        string preSignedUrl = _amazonS3.GetPreSignedURL(preSignedUrlRequest);
+        string preSignedUrl = await _amazonS3.GetPreSignedURLAsync(preSignedUrlRequest);
 
         return new APIGatewayHttpApiV2ProxyResponse
         {
@@ -92,12 +92,6 @@ public class Functions
                 mainPart.Document.Save();
                 System.Diagnostics.Debug.WriteLine("After Save Document");
             }
-
-            if (Path.Exists("test.docx"))
-            {
-                File.Delete("test.docx");
-            }
-            File.WriteAllBytes("test.docx", generatedDocument.ToArray());
             
             var base64 = Convert.ToBase64String(generatedDocument.ToArray());
             return new APIGatewayHttpApiV2ProxyResponse
