@@ -55,6 +55,9 @@ jobs:
       - name: Install dependencies
         working-directory: ./services/src/JiejieChenApp.HtmlDocx
         run: dotnet restore
+      - name: Test
+        working-directory: ./services/src/JiejieChenApp.HtmlDocx
+        run: dotnet test
       - name: Build
         working-directory: ./services/src/JiejieChenApp.HtmlDocx
         run: |
