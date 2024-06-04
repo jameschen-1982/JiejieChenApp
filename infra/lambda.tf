@@ -29,6 +29,7 @@ resource "aws_s3_object" "jiejiechen_angular_artifact" {
   bucket = aws_s3_bucket.lambda_bucket.id
   key    = "jiejiechen-angular.zip"
   source = "${path.module}/../package/jiejiechen-angular.zip"
+  etag   = filesha256("${path.module}/../package/jiejiechen-angular.zip")
 }
 
 resource "aws_lambda_function" "jiejiechen_angular" {

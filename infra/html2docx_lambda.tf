@@ -18,6 +18,7 @@ resource "aws_s3_object" "html2docx_artifact" {
   bucket = aws_s3_bucket.lambda_bucket.id
   key    = "html2docx.zip"
   source = "${path.module}/../package/html2docx.zip"
+  etag   = filesha256("${path.module}/../package/html2docx.zip")
 }
 
 resource "aws_iam_role" "html2docx_lambda_role" {
