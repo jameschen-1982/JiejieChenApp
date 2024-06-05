@@ -9,7 +9,7 @@ resource "aws_lambda_function" "html2docx" {
   timeout     = 30 # seconds
   memory_size = 512
 
-  source_code_hash = "${filesha256("lambda.tf")}"
+  source_code_hash = filesha256("../package/html2docx.zip")
 
   role = aws_iam_role.html2docx_lambda_role.arn
 }
