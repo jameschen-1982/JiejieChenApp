@@ -71,40 +71,38 @@ public class Functions
         var html = "<h1 style=\"color: read\">Hello world</h1>";
         System.Diagnostics.Debug.WriteLine("Downloaded HTML");
 
-        using (MemoryStream generatedDocument = new MemoryStream())
+        using var generatedDocument = new MemoryStream();
+        generatedDocument.Position = 0L;
+        using (var package = WordprocessingDocument.Create(generatedDocument, WordprocessingDocumentType.Document))
         {
-            generatedDocument.Position = 0L;
-            using (WordprocessingDocument package = WordprocessingDocument.Create(generatedDocument, WordprocessingDocumentType.Document))
+            var mainPart = package.MainDocumentPart;
+            if (mainPart == null)
             {
-                MainDocumentPart mainPart = package.MainDocumentPart;
-                if (mainPart == null)
-                {
-                    mainPart = package.AddMainDocumentPart();
-                    new Document(new Body()).Save(mainPart);
-                }
-
-                HtmlConverter converter = new HtmlConverter(mainPart);
-                Body body = mainPart.Document.Body;
-
-                System.Diagnostics.Debug.WriteLine("Before Parse HTML");
-                converter.ParseHtml(html);
-                System.Diagnostics.Debug.WriteLine("After parse HTML");
-                mainPart.Document.Save();
-                System.Diagnostics.Debug.WriteLine("After Save Document");
+                mainPart = package.AddMainDocumentPart();
+                new Document(new Body()).Save(mainPart);
             }
-            
-            var base64 = Convert.ToBase64String(generatedDocument.ToArray());
-            return new APIGatewayHttpApiV2ProxyResponse
-            {
-                StatusCode = (int)HttpStatusCode.OK, 
-                IsBase64Encoded = true,
-                Body = base64,
-                Headers = new Dictionary<string, string>
-                {
-                    { "Content-Type", "application/docx" },
-                    { "Content-disposition", "attachment;filename=\"james_chen_cv.docx\""}
-                }
-            };
+
+            var converter = new HtmlConverter(mainPart);
+            var body = mainPart.Document.Body;
+
+            System.Diagnostics.Debug.WriteLine("Before Parse HTML");
+            converter.ParseHtml(html);
+            System.Diagnostics.Debug.WriteLine("After parse HTML");
+            mainPart.Document.Save();
+            System.Diagnostics.Debug.WriteLine("After Save Document");
         }
+            
+        var base64 = Convert.ToBase64String(generatedDocument.ToArray());
+        return new APIGatewayHttpApiV2ProxyResponse
+        {
+            StatusCode = (int)HttpStatusCode.OK, 
+            IsBase64Encoded = true,
+            Body = base64,
+            Headers = new Dictionary<string, string>
+            {
+                { "Content-Type", "application/docx" },
+                { "Content-disposition", "attachment;filename=\"james_chen_cv.docx\""}
+            }
+        };
     }
 }
