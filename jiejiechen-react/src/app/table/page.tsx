@@ -1,6 +1,5 @@
 'use client'
 
-// `app/dashboard/page.tsx` is the UI for the `/home` URL
 import React, {useEffect, useState} from "react";
 import {getPosts} from "@/app/services/deliveryService";
 
