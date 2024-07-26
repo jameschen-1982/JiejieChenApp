@@ -11,15 +11,13 @@ export default function Page() {
       setData(res.data);
     });
   }, []);
-  return (<>
+  return (<div className="mx-auto max-w-7xl p-6">
       <h1>Hello, Home Page!</h1>
       {data && data.map((item: any) => (
         <div key={item.date}>
           {item.date} - {item.temperatureC}
         </div>
       ))}
-      <div>
-      </div>
-    </>
+    </div>
   );
 }
