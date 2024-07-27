@@ -10,7 +10,7 @@ const oidcConfig = {
   redirect_uri: process.env.NEXT_PUBLIC_SPA_HOST,
   scope: "openid profile email",
   extraQueryParams: { audience: process.env.NEXT_PUBLIC_IDP_AUDIENCE },
-  userStore: new WebStorageStateStore({store: window?.localStorage}),
+  userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.localStorage}) : undefined,
   onSigninCallback: (_user: unknown | void): void => {
     window.history.replaceState(
       {},
