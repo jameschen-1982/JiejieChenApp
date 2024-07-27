@@ -24,7 +24,7 @@ jobs:
         working-directory: jiejiechen-react
         run: |
           yarn install
-          yarn build --if-present
+          yarn build
 
       - name: Zip artifact for deployment
         working-directory: jiejiechen-react
