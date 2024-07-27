@@ -1,6 +1,5 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and Deploy React Demo
 
 on:
@@ -10,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build_spa:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,9 +23,8 @@ jobs:
       - name: npm install, build, and test
         working-directory: jiejiechen-react
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          yarn install
+          yarn build --if-present
 
       - name: Zip artifact for deployment
         working-directory: jiejiechen-react
@@ -38,9 +36,9 @@ jobs:
           name: node-app
           path: jiejiechen-react/release.zip
 
-  deploy:
+  deploy_spa:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build_spa
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}

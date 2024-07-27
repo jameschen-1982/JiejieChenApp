@@ -20,11 +20,19 @@ resource "azurerm_linux_web_app" "spa" {
     application_stack {
       node_version = "18-lts"
     }
+    
+    app_command_line = "npm run start"
   }
 
   app_settings = {
     "SOME_KEY" = "some_value"
   }
+}
+
+resource "azurerm_app_service_custom_hostname_binding" "spa" {
+  resource_group_name = var.resource_group_name
+  hostname            = var.spa_public_domain_name
+  app_service_name    = azurerm_linux_web_app.spa.name
 }
 
 resource "azurerm_linux_web_app" "web_api" {
