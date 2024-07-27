@@ -47,7 +47,8 @@ resource "azurerm_linux_web_app" "web_api" {
   }
 
   app_settings = {
-    "AllowedOrigins" = var.spa_public_domain_name
+    "AllowedOrigins" = "https://${var.spa_public_domain_name}",
+    "Authority" = var.auth0_authority
   }
 }
 

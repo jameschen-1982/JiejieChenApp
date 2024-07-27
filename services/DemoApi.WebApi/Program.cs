@@ -2,6 +2,7 @@ using DemoApi.Data;
 using DemoApi.Services;
 using DemoApi.Validations;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,10 +28,21 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Setup Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = configuration.GetValue<string>("Authority");
+    options.Audience = "https://react-api/";
+});
+
 // Setup DBContext
 builder.Services.AddDbContext<DemoContext>(options =>
 {
-    var isDevelopment = builder.Environment.IsDevelopment();
+    var isDevelopment = environment.IsDevelopment();
     if (isDevelopment)
     {
         options.UseSqlite("Data Source=Demo.db");

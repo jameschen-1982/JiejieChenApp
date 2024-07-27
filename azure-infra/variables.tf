@@ -42,3 +42,9 @@ variable "web_api_public_domain_name" {
   description = "The public domain name for the Web API."
   default     = "react-api.jiejiechen.com"
 }
+
+variable "auth0_authority" {
+  description = "Auth0 Authority"
+  type = string
+  default = "https://dev-3bdut0nus5xrgjd1.us.auth0.com/"
+}
