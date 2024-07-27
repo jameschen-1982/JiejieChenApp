@@ -21,7 +21,7 @@ resource "azurerm_linux_web_app" "spa" {
       node_version = "18-lts"
     }
     
-    app_command_line = "npm run start"
+    app_command_line = "pm2 start /home/site/wwwroot/ecosystem.config.js --no-daemon"
   }
 
   app_settings = {
