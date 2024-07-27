@@ -84,10 +84,11 @@ jobs:
           dotnet-version: '8.x'
   
       - name: Build with dotnet
-        working-directory: services/DemoApi.WebApi
+        working-directory: services
         run: dotnet build --configuration Release
   
       - name: dotnet publish
+        working-directory: services/DemoApi.WebApi
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/web_api
   
       - name: Upload artifact for deployment job

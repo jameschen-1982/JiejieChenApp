@@ -52,6 +52,12 @@ resource "azurerm_linux_web_app" "web_api" {
   }
 }
 
+resource "azurerm_app_service_custom_hostname_binding" "web_api" {
+  resource_group_name = var.resource_group_name
+  hostname            = var.web_api_public_domain_name
+  app_service_name    = azurerm_linux_web_app.web_api.name
+}
+
 resource "azurerm_mssql_server" "db_server" {
   name                         = "${local.stack_prefix}-db-server"
   resource_group_name          = var.resource_group_name
