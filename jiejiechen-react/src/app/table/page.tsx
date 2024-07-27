@@ -1,13 +1,16 @@
 'use client'
 
 import React, {useEffect, useState} from "react";
-import {getTable} from "@/services/deliveryService";
+import {getTable, queryForms} from "@/services/deliveryService";
 
 export default function Page() {
   const [data, setData] = useState<any>();
   useEffect(() => {
     getTable().then((res) => {
       setData(res.data);
+    });
+    queryForms().then((res) => {
+      console.log(res);
     });
   }, []);
   return (

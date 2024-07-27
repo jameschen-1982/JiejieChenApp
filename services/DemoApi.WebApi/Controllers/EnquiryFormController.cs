@@ -1,6 +1,7 @@
 using DemoApi.Models;
 using DemoApi.Services;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoApi.Controllers;
@@ -21,5 +22,12 @@ public class EnquiryFormController(IEnquiryService enquiryService, IValidator<En
         
         await enquiryService.CreateEnquiryAsync(form);
         return Created();
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> Get()
+    {
+        return Ok("OOOOOKKK");
     }
 }
