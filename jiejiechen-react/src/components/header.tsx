@@ -8,28 +8,11 @@ import {
   
 } from '@headlessui/react'
 import {
-  ArrowPathIcon,
   Bars3Icon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import {PhoneIcon, PlayCircleIcon} from '@heroicons/react/20/solid'
 import Link from "next/link";
-
-const products = [
-  {name: 'TableDemo', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon},
-  {name: 'FormDemo', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon},
-  {name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon},
-  {name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon},
-  {name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon},
-]
-const callsToAction = [
-  {name: 'Watch demo', href: '#', icon: PlayCircleIcon},
-  {name: 'Contact sales', href: '#', icon: PhoneIcon},
-]
+import Login from './login'
 
 export default function HeaderComponent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -62,9 +45,7 @@ export default function HeaderComponent() {
           </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          <Login isMobile={false} />
         </div>
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -112,12 +93,7 @@ export default function HeaderComponent() {
                 </a>
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+                <Login isMobile={true} />
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useEffect, useState} from "react";
-import {getTable} from "@/app/services/deliveryService";
+import {getTable} from "@/services/deliveryService";
 
 export default function Page() {
   const [data, setData] = useState<any>();

@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5198',
+  baseURL: process.env.NEXT_PUBLIC_API_HOST,
   timeout: 1000,
   headers: {'Content-Type': 'application/json'}
 });
