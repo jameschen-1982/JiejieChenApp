@@ -1,7 +1,15 @@
+using DemoApi.Data;
+using DemoApi.Services;
+using DemoApi.Validations;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddMvc();
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
@@ -15,6 +23,29 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Setup DBContext
+builder.Services.AddDbContext<DemoContext>(options =>
+{
+    var isDevelopment = builder.Environment.IsDevelopment();
+    if (isDevelopment)
+    {
+        options.UseSqlite("Data Source=Demo.db");
+    }
+    else
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    }
+});
+
+// Set up auto mapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+// Set up fluent validation
+builder.Services.AddValidatorsFromAssembly(typeof(EnquiryFormValidator).Assembly);
+
+// Set up dependency injections for services
+builder.Services.AddTransient<IEnquiryService, EnquiryService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +58,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers();
 
 var summaries = new[]
 {
@@ -47,6 +79,7 @@ app.MapGet("/weatherforecast", () =>
     })
     .WithName("GetWeatherForecast")
     .WithOpenApi();
+
 
 app.Run();
 

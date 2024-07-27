@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function FooterComponent() {
   const thisYear = new Date().getFullYear();
   return (
     <footer className="bg-white rounded-lg shadow mt-4 mb-0 dark:bg-gray-800">

@@ -1,16 +1,11 @@
 'use client'
 
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {
   Dialog,
   DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Popover,
-  PopoverButton,
   PopoverGroup,
-  PopoverPanel,
+  
 } from '@headlessui/react'
 import {
   ArrowPathIcon,
@@ -21,7 +16,8 @@ import {
   SquaresPlusIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import {ChevronDownIcon, PhoneIcon, PlayCircleIcon} from '@heroicons/react/20/solid'
+import {PhoneIcon, PlayCircleIcon} from '@heroicons/react/20/solid'
+import Link from "next/link";
 
 const products = [
   {name: 'TableDemo', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon},
@@ -42,10 +38,10 @@ export default function HeaderComponent() {
     <header className="bg-white">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Jiejie Chen</span>
             <img alt="JC logo" src="https://www.jiejiechen.com/assets/images/favicon-32x32.png" className="h-8 w-auto"/>
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -58,12 +54,12 @@ export default function HeaderComponent() {
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a href="/table" className="text-sm font-semibold leading-6 text-gray-900">
+          <Link href="/table" className="text-sm font-semibold leading-6 text-gray-900">
             Table Demo
-          </a>
-          <a href="/form" className="text-sm font-semibold leading-6 text-gray-900">
+          </Link>
+          <Link href="/form" className="text-sm font-semibold leading-6 text-gray-900">
             Form Demo
-          </a>
+          </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
@@ -96,18 +92,18 @@ export default function HeaderComponent() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <a
+                <Link
                   href="/table"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Table Demo
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/form"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Form Demo
-                </a>
+                </Link>
                 <a
                   href="https://www.jiejiechen.com"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
