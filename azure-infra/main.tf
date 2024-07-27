@@ -25,7 +25,6 @@ resource "azurerm_linux_web_app" "spa" {
   }
 
   app_settings = {
-    "SOME_KEY" = "some_value"
   }
 }
 
@@ -48,7 +47,7 @@ resource "azurerm_linux_web_app" "web_api" {
   }
 
   app_settings = {
-    "ANOTHER_KEY" = "another_value"
+    "AllowedOrigins" = var.spa_public_domain_name
   }
 }
 

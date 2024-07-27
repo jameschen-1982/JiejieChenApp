@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
+IWebHostEnvironment environment = builder.Environment;
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddMvc();
@@ -17,7 +20,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            var origins = configuration.GetValue<string>("AllowedOrigins")?.Split(";") ?? [];
+            builder.WithOrigins(origins)
                    .AllowAnyMethod()
                    .AllowAnyHeader();
         });
