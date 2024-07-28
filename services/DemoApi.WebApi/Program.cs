@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
 ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
-IWebHostEnvironment environment = builder.Environment;
+configuration.AddEnvironmentVariables();
+var environment = builder.Environment;
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
