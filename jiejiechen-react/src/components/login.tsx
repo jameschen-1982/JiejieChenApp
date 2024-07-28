@@ -20,9 +20,9 @@ export default function LoginComponent({isMobile} : {isMobile: boolean}) {
     await auth.signinRedirect({ state: { returnTo: pathName } as CustomOidcState });
   }
   
-  const handleLogoutClick = async () => {
-    await auth.removeUser();
-    await auth.signoutSilent({ id_token_hint: auth.user?.id_token });
+  const handleLogoutClick = () => {
+    void auth.signoutSilent({ id_token_hint: auth.user?.id_token });
+    void auth.removeUser();
   }
   
   if (!auth.isAuthenticated) {

@@ -110,7 +110,7 @@ resource "mssql_user" "webapi_db_user" {
 
   database  = azurerm_mssql_database.db.name
   username  = azurerm_linux_web_app.web_api.name
-  object_id = "d85b48d0-ec51-4396-bc69-948e0dd2ccdf"
+  object_id = data.azuread_service_principal.web_managed_identity.object_id
 
   roles     = ["db_datareader", "db_datawriter"]
 }
