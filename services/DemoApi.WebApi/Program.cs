@@ -7,8 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
-configuration.AddEnvironmentVariables();
+var configuration = builder.Configuration;
 var environment = builder.Environment;
 
 // Add services to the container.
@@ -47,10 +46,10 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
-        builder =>
+        corsBuilder =>
         {
             var origins = configuration.GetValue<string>("AllowedOrigins")?.Split(";") ?? [];
-            builder.WithOrigins(origins)
+            corsBuilder.WithOrigins(origins)
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         });
@@ -98,9 +97,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors("AllowAllOrigins");
 }
-
+app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

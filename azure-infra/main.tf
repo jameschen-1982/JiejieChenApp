@@ -26,6 +26,10 @@ resource "azurerm_linux_web_app" "spa" {
 
   app_settings = {
   }
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "spa" {
@@ -48,7 +52,10 @@ resource "azurerm_linux_web_app" "web_api" {
 
   app_settings = {
     "AllowedOrigins" = "https://${var.spa_public_domain_name}",
-    "Authority" = var.auth0_authority
+  }
+  
+  identity {
+    type = "SystemAssigned"
   }
 }
 
