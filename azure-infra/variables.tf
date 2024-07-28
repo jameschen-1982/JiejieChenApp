@@ -25,12 +25,12 @@ variable "sql_server_sku" {
 
 variable "sql_server_admin_login" {
   description = "The admin login name for SQL Server."
-  default     = "sqladmin"
+  default     = "james.chen@standards.org.au"
 }
 
-variable "sql_server_admin_password" {
-  description = "The admin password for SQL Server."
-  default     = "Password1234!"
+variable "sql_server_admin_object_id" {
+  description = "The Object ID for admin"
+  default     = "c321ea73-f4af-417c-b94a-28effcc12323"
 }
 
 variable "spa_public_domain_name" {

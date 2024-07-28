@@ -4,7 +4,7 @@ import {User} from "oidc-client-ts";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_HOST,
-  timeout: 1000,
+  timeout: 30000,
   headers: {'Content-Type': 'application/json'}
 });
 
