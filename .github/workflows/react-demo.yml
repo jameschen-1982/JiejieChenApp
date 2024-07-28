@@ -89,7 +89,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test with dotnet
-        working-directory: test/DemoApi.WebApi.Tests
+        working-directory: services/test/DemoApi.WebApi.Tests
         run: dotnet test
         
       - name: dotnet publish
