@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {useAuth} from "react-oidc-context";
+import {CustomOidcState} from "@/providers/auth0-auth-provider";
+import {usePathname} from "next/navigation";
 
 export default function LoginComponent({isMobile} : {isMobile: boolean}) {
   const auth = useAuth();
   const [buttonStyles, setButtonStyles] = useState<string>("");
+  const pathName = usePathname();
   
   useEffect(() => {
     if (isMobile) {
@@ -14,12 +17,12 @@ export default function LoginComponent({isMobile} : {isMobile: boolean}) {
   }, [isMobile]);
   
   const handleLoginClick = async () => {
-    await auth.signinRedirect();
+    await auth.signinRedirect({ state: { returnTo: pathName } as CustomOidcState });
   }
   
   const handleLogoutClick = async () => {
-    await auth.signoutSilent({ id_token_hint: auth.user?.id_token });
     await auth.removeUser();
+    await auth.signoutSilent({ id_token_hint: auth.user?.id_token });
   }
   
   if (!auth.isAuthenticated) {

@@ -9,7 +9,7 @@ import Auth0AuthProvider from "@/providers/auth0-auth-provider";
 const inter = Inter({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-  title: "James Chen",
+  title: "James Chen's React Demo",
   description: "",
 };
 

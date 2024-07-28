@@ -6,6 +6,7 @@ import {Enquiry} from "@/models/enquiry";
 import {useAuth} from "react-oidc-context";
 import {TableModel} from "@/models/table-model";
 import Table from "@/components/table";
+import {CustomOidcState} from "@/providers/auth0-auth-provider";
 
 export default function Page() {
   const auth = useAuth();
@@ -17,19 +18,21 @@ export default function Page() {
   }
 
   useEffect(() => {
-    queryForms(pageIndex).then((res) => {
-      setTableModel(res.data);
-    });
-  }, [pageIndex]);
+    if (auth.isAuthenticated) {
+      queryForms(pageIndex).then((res) => {
+        setTableModel(res.data);
+      });  
+    }
+  }, [auth, pageIndex]);
 
-  if (!auth.isLoading && !auth.isAuthenticated) {
+  if (!auth.isAuthenticated) {
     return <div className="h-screen flex items-center justify-center text-center">
       <div className="m-3">
         Please login to view the enquiries
       </div>
       <button
         onClick={async () => {
-          await auth.signinRedirect();
+          await auth.signinRedirect({ state: { returnTo: "/table" } as CustomOidcState });
         }}
         className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
