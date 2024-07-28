@@ -87,7 +87,11 @@ jobs:
       - name: Build with dotnet
         working-directory: services
         run: dotnet build --configuration Release
-  
+
+      - name: Test with dotnet
+        working-directory: test/DemoApi.WebApi.Tests
+        run: dotnet test
+        
       - name: dotnet publish
         working-directory: services/DemoApi.WebApi
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/web_api
