@@ -26,8 +26,20 @@ public class EnquiryFormController(IEnquiryService enquiryService, IValidator<En
 
     [HttpGet]
     [Authorize]
-    public async Task<IActionResult> Get()
+    public async Task<ActionResult<TableModel<EnquiryForm>>> Get(int page, int pageSize)
     {
-        return Ok("OOOOOKKK");
+        if (page < 0)
+        {
+            return BadRequest("Page must be equal or greater than 0");
+        }
+
+        if (pageSize <= 0)
+        {
+            return BadRequest("PageSize must be greater than 0");
+        }
+
+        var result = await enquiryService.GetEnquiriesAsync(page, pageSize);
+        
+        return Ok(result);
     }
 }

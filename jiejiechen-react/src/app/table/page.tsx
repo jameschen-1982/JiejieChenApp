@@ -1,51 +1,47 @@
 'use client'
 
 import React, {useEffect, useState} from "react";
-import {getTable, queryForms} from "@/services/deliveryService";
+import {queryForms} from "@/services/deliveryService";
+import {Enquiry} from "@/models/enquiry";
+import {useAuth} from "react-oidc-context";
+import {TableModel} from "@/models/table-model";
+import Table from "@/components/table";
 
 export default function Page() {
-  const [data, setData] = useState<any>();
+  const auth = useAuth();
+  const [tableModel, setTableModel] = useState<TableModel<Enquiry>>();
+  const [pageIndex, setPageIndex] = useState<number>(0);
+
+  const handlePageChange = (pageIndex: number) => {
+    setPageIndex(pageIndex);
+  }
+
   useEffect(() => {
-    getTable().then((res) => {
-      setData(res.data);
+    queryForms(pageIndex).then((res) => {
+      setTableModel(res.data);
     });
-    queryForms().then((res) => {
-      console.log(res);
-    });
-  }, []);
+  }, [pageIndex]);
+
+  if (!auth.isLoading && !auth.isAuthenticated) {
+    return <div className="h-screen flex items-center justify-center text-center">
+      <div className="m-3">
+        Please login to view the enquiries
+      </div>
+      <button
+        onClick={async () => {
+          await auth.signinRedirect();
+        }}
+        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        Login
+      </button>
+    </div>;
+  }
+
   return (
     <div className="mx-auto max-w-7xl p-6">
       <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-              Date
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Temperature
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Summary
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          {data && data.map((item: any) => (
-            <tr key={item.date} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {item.date}
-              </th>
-              <td className="px-6 py-4">
-                {item.temperatureC}
-              </td>
-              <td className="px-6 py-4">
-                {item.summary}
-              </td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
+        {tableModel && <Table tableModel={tableModel} onPageChange={handlePageChange} />}
       </div>
     </div>
   );

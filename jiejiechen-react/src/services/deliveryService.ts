@@ -17,14 +17,12 @@ const getUser = () => {
   return User.fromStorageString(oidcStorage);
 }
 
-export const getTable = () => api.get('/weatherforecast');
-
 export const postForm = (form: FormData) => {
   return api.post(`/api/enquiryform`, form);
 };
 
-export const queryForms = () => {
+export const queryForms = (page: number) => {
   const user = getUser();
   const token = user?.access_token;
-  return api.get(`/api/enquiryform`, {headers: {Authorization: `Bearer ${token}`}});
+  return api.get(`/api/enquiryform?page=${page}&pageSize=5`, {headers: {Authorization: `Bearer ${token}`}});
 }

@@ -8,5 +8,6 @@ public class EnquiryFormProfile : Profile
     public EnquiryFormProfile()
     {
         CreateMap<EnquiryForm, Domain.EnquiryForm>();
+        CreateMap<Domain.EnquiryForm, EnquiryForm>();
     }
 }
