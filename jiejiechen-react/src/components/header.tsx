@@ -23,7 +23,7 @@ export default function HeaderComponent() {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Jiejie Chen</span>
-            <img alt="JC logo" src="https://www.jiejiechen.com/assets/images/favicon-32x32.png" className="h-8 w-auto"/>
+            <img alt="JC logo" src="/assets/favicon-32x32.png" className="h-8 w-auto"/>
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -36,14 +36,6 @@ export default function HeaderComponent() {
             <Bars3Icon aria-hidden="true" className="h-6 w-6"/>
           </button>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <Link href="/table" className="text-sm font-semibold leading-6 text-gray-900">
-            Table Demo
-          </Link>
-          <Link href="/form" className="text-sm font-semibold leading-6 text-gray-900">
-            Form Demo
-          </Link>
-        </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Login isMobile={false} />
         </div>
@@ -73,18 +65,6 @@ export default function HeaderComponent() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <Link
-                  href="/table"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Table Demo
-                </Link>
-                <Link
-                  href="/form"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Form Demo
-                </Link>
                 <a
                   href="https://www.jiejiechen.com"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

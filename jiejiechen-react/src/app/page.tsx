@@ -7,23 +7,23 @@ export default function Home() {
         <div className="mx-auto max-w-2xl py-4 sm:py-4 lg:py-4">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              React Demo
+              Hi, I Am James Chen
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              using React, NextJS, TailwindCSS, and TypeScript
-            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              Stay tuned for the update of this site
+            </div>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="/table"
+                href="/background"
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Table Demo
+                See My Background
               </a>
               <a
-                href="/form"
+                href="https://github.com/jameschen-1982/JiejieChenApp"
                 className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Form Demo
+                Check Source Code
               </a>
             </div>
           </div>

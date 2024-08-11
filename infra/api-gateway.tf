@@ -85,9 +85,17 @@ resource "aws_apigatewayv2_integration" "jiejiechen_angular_lambda" {
   integration_uri  = aws_lambda_function.jiejiechen_angular.invoke_arn
 }
 
-resource "aws_apigatewayv2_route" "jiejiechen_angular" {
+resource "aws_apigatewayv2_route" "jiejiechen_angular_root" {
   api_id    = aws_apigatewayv2_api.jiejiechen_main_gw.id
-  route_key = "ANY /{proxy+}"
+  route_key = "ANY /background"
+
+  target = "integrations/${aws_apigatewayv2_integration.jiejiechen_angular_lambda.id}"
+}
+
+
+resource "aws_apigatewayv2_route" "jiejiechen_angular_other" {
+  api_id    = aws_apigatewayv2_api.jiejiechen_main_gw.id
+  route_key = "ANY /background/{proxy+}"
 
   target = "integrations/${aws_apigatewayv2_integration.jiejiechen_angular_lambda.id}"
 }
@@ -102,3 +110,25 @@ resource "aws_lambda_permission" "jiejiechen_angular_lambda" {
   source_arn = "${aws_apigatewayv2_api.jiejiechen_main_gw.execution_arn}/*/*"
 }
 
+## JiejieChenApp React ###
+# resource "aws_apigatewayv2_integration" "jiejiechen_react_lambda" {
+#   api_id           = aws_apigatewayv2_api.jiejiechen_main_gw.id
+#   integration_type = "AWS_PROXY"
+#   integration_uri  = aws_lambda_function.jiejiechen_react.invoke_arn
+# }
+# 
+# resource "aws_apigatewayv2_route" "jiejiechen_react" {
+#   api_id    = aws_apigatewayv2_api.jiejiechen_main_gw.id
+#   route_key = "ANY /{proxy+}"
+# 
+#   target = "integrations/${aws_apigatewayv2_integration.jiejiechen_react_lambda.id}"
+# }
+# 
+# resource "aws_lambda_permission" "jiejiechen_react_lambda" {
+#   statement_id  = "AllowExecutionFromAPIGateway_React"
+#   action        = "lambda:InvokeFunction"
+#   function_name = aws_lambda_function.jiejiechen_angular.function_name
+#   principal     = "apigateway.amazonaws.com"
+# 
+#   source_arn = "${aws_apigatewayv2_api.jiejiechen_main_gw.execution_arn}/*/*"
+# }

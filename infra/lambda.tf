@@ -29,7 +29,7 @@ resource "aws_s3_object" "jiejiechen_angular_artifact" {
   bucket = aws_s3_bucket.lambda_bucket.id
   key    = "jiejiechen-angular.zip"
   source = "${path.module}/../package/jiejiechen-angular.zip"
-  etag   = filesha256("${path.module}/../package/jiejiechen-angular.zip")
+  etag   = filemd5("${path.module}/../package/jiejiechen-angular.zip")
 }
 
 resource "aws_lambda_function" "jiejiechen_angular" {
@@ -41,7 +41,7 @@ resource "aws_lambda_function" "jiejiechen_angular" {
   role         = aws_iam_role.handler_lambda_exec.arn
   timeout      = 30 # seconds
   memory_size  = 512
-  source_code_hash = filesha256("../package/jiejiechen-angular.zip")
+  source_code_hash = filemd5("../package/jiejiechen-angular.zip")
 }
 
 resource "aws_cloudwatch_log_group" "jiejiechen_angular" {

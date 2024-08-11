@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --serve-path=/background/",
+    "build": "ng build --base-href=/background/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless",

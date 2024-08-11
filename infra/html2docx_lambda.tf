@@ -9,7 +9,7 @@ resource "aws_lambda_function" "html2docx" {
   timeout     = 30 # seconds
   memory_size = 512
 
-  source_code_hash = "${filesha256("lambda.tf")}"
+  source_code_hash = "${filemd5("lambda.tf")}"
 
   role = aws_iam_role.html2docx_lambda_role.arn
 }
@@ -18,7 +18,7 @@ resource "aws_s3_object" "html2docx_artifact" {
   bucket = aws_s3_bucket.lambda_bucket.id
   key    = "html2docx.zip"
   source = "${path.module}/../package/html2docx.zip"
-  etag   = filesha256("${path.module}/../package/html2docx.zip")
+  etag   = filemd5("${path.module}/../package/html2docx.zip")
 }
 
 resource "aws_iam_role" "html2docx_lambda_role" {
