@@ -11,20 +11,24 @@ import {
   Bars3Icon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import Link from "next/link";
 import Login from './login'
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
 export default function HeaderComponent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const scrollToTop = () => {
+    scroll.scrollToTop();
+  };
+  
   return (
-    <header className="bg-white">
+    <header className="bg-white sticky top-0">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Jiejie Chen</span>
             <img alt="JC logo" src="/assets/favicon-32x32.png" className="h-8 w-auto"/>
-          </Link>
+          </a>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -36,8 +40,24 @@ export default function HeaderComponent() {
             <Bars3Icon aria-hidden="true" className="h-6 w-6"/>
           </button>
         </div>
+        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+          <a className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" onClick={scrollToTop}>
+            About Me
+          </a>
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="projects">
+            Projects
+          </Link>
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="blog">
+            Blog
+          </Link>
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="contact_me">
+            Contact Me
+          </Link>
+        </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Login isMobile={false} />
+          <form action="/api/download-cv" method="POST">
+            <button type="submit" className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Download CV</button>
+          </form>
         </div>
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">

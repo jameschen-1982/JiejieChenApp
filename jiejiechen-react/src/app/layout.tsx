@@ -29,7 +29,7 @@ export default function RootLayout({
     <PHProvider>
       <body className={inter.className}>
       <PostHogPageView />
-      <main className="flex flex-col h-screen">
+      <main>
         <Auth0AuthProvider>
           <Header/>
           <div className="flex-grow">
