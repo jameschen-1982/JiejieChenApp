@@ -25,23 +25,20 @@ resource "aws_iam_role_policy_attachment" "handler_lambda_policy" {
 }
 
 ### JiejieChen Angular ###
-resource "aws_s3_object" "jiejiechen_angular_artifact" {
-  bucket = aws_s3_bucket.lambda_bucket.id
-  key    = "jiejiechen-angular.zip"
-  source = "${path.module}/../package/jiejiechen-angular.zip"
-  etag   = filemd5("${path.module}/../package/jiejiechen-angular.zip")
-}
+# resource "aws_s3_object" "jiejiechen_angular_artifact" {
+#   bucket = aws_s3_bucket.lambda_bucket.id
+#   key    = "jiejiechen-angular.zip"
+#   source = "${path.module}/../package/jiejiechen-angular.zip"
+#   etag = filemd5("${path.module}/../package/jiejiechen-angular.zip")
+# }
 
 resource "aws_lambda_function" "jiejiechen_angular" {
   function_name = "${local.stack_prefix}-angular"
-  s3_bucket = aws_s3_bucket.lambda_bucket.id
-  s3_key    = aws_s3_object.jiejiechen_angular_artifact.key
-  runtime     = "nodejs20.x"
-  handler     = "lambda.handler"
-  role         = aws_iam_role.handler_lambda_exec.arn
-  timeout      = 30 # seconds
-  memory_size  = 512
-  source_code_hash = filemd5("../package/jiejiechen-angular.zip")
+  role          = aws_iam_role.handler_lambda_exec.arn
+  timeout       = 30
+  memory_size   = 1024
+  image_uri    = "${aws_ecr_repository.jiejiechen_angular.repository_url}:latest"
+  package_type = "Image"
 }
 
 resource "aws_cloudwatch_log_group" "jiejiechen_angular" {
@@ -53,10 +50,10 @@ resource "aws_lambda_function" "jiejiechen_cms" {
   function_name = "${local.stack_prefix}-cms"
 
   role         = aws_iam_role.handler_lambda_exec.arn
-  timeout      = 90 # seconds
+  timeout      = 90
   image_uri    = "${aws_ecr_repository.jiejiechen-cms.repository_url}:latest"
   package_type = "Image"
-  memory_size  = 512
+  memory_size  = 1024
 
   environment {
     variables = {
