@@ -12,7 +12,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import Login from './login'
-import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy } from 'react-scroll';
+import { Link, animateScroll as scroll, scrollSpy } from 'react-scroll';
 
 export default function HeaderComponent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -47,7 +47,7 @@ export default function HeaderComponent() {
           <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="projects">
             Projects
           </Link>
-          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="blog">
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="blogs">
             Blog
           </Link>
           <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="contact_me">
