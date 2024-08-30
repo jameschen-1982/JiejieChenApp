@@ -12,14 +12,13 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import Login from './login'
-import { Link, animateScroll as scroll, scrollSpy } from 'react-scroll';
+import {usePathname} from "next/navigation";
+import Link from "next/link";
 
 export default function HeaderComponent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const scrollToTop = () => {
-    scroll.scrollToTop();
-  };
+  const pathname = usePathname();
+  
   
   return (
     <header className="bg-white sticky top-0">
@@ -41,16 +40,16 @@ export default function HeaderComponent() {
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" onClick={scrollToTop}>
+          <a className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/">
             About Me
           </a>
-          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="projects">
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#projects">
             Projects
           </Link>
-          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="blogs">
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#blogs">
             Blog
           </Link>
-          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" smooth spy to="contact_me">
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#contact_me">
             Contact Me
           </Link>
         </PopoverGroup>

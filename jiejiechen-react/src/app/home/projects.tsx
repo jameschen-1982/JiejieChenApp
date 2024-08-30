@@ -3,7 +3,7 @@ import React from "react";
 export default function Projects() {
   return <>
     { /* Projects */}
-    <section id="projects" className="flex my-auto h-[calc(100vh-130px)] items-center justify-center p-5">
+    <section id="projects" className="flex my-auto lg:min-h-[calc(100vh-120px)] items-center justify-center p-5">
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">

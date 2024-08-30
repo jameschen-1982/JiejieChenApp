@@ -4,7 +4,7 @@ import React from "react";
 export default function AboutMe() {
   return <>
     { /* About Me */}
-    <section className="flex my-auto h-[calc(100vh-170px)] items-center justify-center p-5">
+    <section className="flex my-auto lg:min-h-[calc(100vh-170px)] items-center justify-center p-5">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
           <div>
