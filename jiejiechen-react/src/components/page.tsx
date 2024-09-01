@@ -39,8 +39,6 @@ export default function PageComponent({ data }: { data: Page }) {
       </div>
 
       <div className="dark:text-gray-100">
-        <p>{description}</p>
-
         {data.attributes.contentSections.map((section: any, index: number) => postRenderer(section, index))}
       </div>
     </article>

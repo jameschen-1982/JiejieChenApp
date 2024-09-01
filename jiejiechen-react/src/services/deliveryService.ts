@@ -18,7 +18,7 @@ const getUser = () => {
 }
 
 export const postForm = (form: FormData) => {
-  return api.post(`/api/enquiryform`, form);
+  return api.post(`/api/leads`, form);
 };
 
 export const queryForms = (page: number) => {
