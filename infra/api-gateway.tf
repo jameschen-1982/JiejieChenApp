@@ -37,24 +37,47 @@ resource "aws_cloudwatch_log_group" "main_api_gw" {
 }
 
 ### JiejieChen Api ###
-resource "aws_apigatewayv2_integration" "jiejiechen_api_lambda" {
+resource "aws_apigatewayv2_integration" "download_cv_lambda" {
   api_id = aws_apigatewayv2_api.jiejiechen_main_gw.id
 
   integration_type       = "AWS_PROXY"
   integration_uri        = aws_lambda_function.html2docx.invoke_arn
 }
 
-resource "aws_apigatewayv2_route" "get_handler" {
+resource "aws_apigatewayv2_route" "download_cv" {
   api_id    = aws_apigatewayv2_api.jiejiechen_main_gw.id
   route_key = "POST /api/download-cv"
 
-  target = "integrations/${aws_apigatewayv2_integration.jiejiechen_api_lambda.id}"
+  target = "integrations/${aws_apigatewayv2_integration.download_cv_lambda.id}"
 }
 
-resource "aws_lambda_permission" "jiejiechen_api_lambda" {
+resource "aws_lambda_permission" "download_cv_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway_Api"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.html2docx.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_apigatewayv2_api.jiejiechen_main_gw.execution_arn}/*/*"
+}
+
+resource "aws_apigatewayv2_integration" "save_leads_lambda" {
+  api_id = aws_apigatewayv2_api.jiejiechen_main_gw.id
+
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.save_lead.invoke_arn
+}
+
+resource "aws_apigatewayv2_route" "save_leads" {
+  api_id    = aws_apigatewayv2_api.jiejiechen_main_gw.id
+  route_key = "POST /api/leads"
+
+  target = "integrations/${aws_apigatewayv2_integration.save_leads_lambda.id}"
+}
+
+resource "aws_lambda_permission" "save_leads_lambda" {
+  statement_id  = "AllowExecutionFromAPIGateway_Api"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.save_lead.function_name
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_apigatewayv2_api.jiejiechen_main_gw.execution_arn}/*/*"
