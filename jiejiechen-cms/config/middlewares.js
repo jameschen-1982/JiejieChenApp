@@ -30,7 +30,7 @@ module.exports = [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['test.jiejiechen.com', 'www.jiejiechen.com', 'localhost'],
+      origin: ['test.jiejiechen.com', 'www.jiejiechen.com', 'localhost', 'host.docker.internal'],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
       keepHeaderOnError: true,

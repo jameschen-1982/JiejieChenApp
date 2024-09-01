@@ -17,8 +17,14 @@ const nextConfig = {
         pathname: '/uploads/**',
       },
       {
+        protocol: 'http',
+        hostname: 'host.docker.internal',
+        port: '1337',
+        pathname: '/uploads/**',
+      },
+      {
         protocol: 'https',
-        hostname: 'images.pexels.com',
+        hostname: 'cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com',
       }
     ],
   },
