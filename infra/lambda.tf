@@ -44,26 +44,3 @@ resource "aws_lambda_function" "jiejiechen_angular" {
 resource "aws_cloudwatch_log_group" "jiejiechen_angular" {
   name = "/aws/lambda/${aws_lambda_function.jiejiechen_angular.function_name}"
 }
-
-### JiejieChen CMS ###
-resource "aws_lambda_function" "jiejiechen_cms" {
-  function_name = "${local.stack_prefix}-cms"
-
-  role         = aws_iam_role.handler_lambda_exec.arn
-  timeout      = 90
-  image_uri    = "${aws_ecr_repository.jiejiechen-cms.repository_url}:latest"
-  package_type = "Image"
-  memory_size  = 1024
-
-  environment {
-    variables = {
-      "DATABASE_HOST"        = var.cms_database_host
-      "DATABASE_SECRET_NAME" = var.cms_database_secret_name
-      "REGION"               = "ap-southeast-2"
-    }
-  }
-}
-
-resource "aws_cloudwatch_log_group" "jiejiechen_cms" {
-  name = "/aws/lambda/${aws_lambda_function.jiejiechen_cms.function_name}"
-}

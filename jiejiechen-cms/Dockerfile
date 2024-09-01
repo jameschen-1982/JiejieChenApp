@@ -1,7 +1,7 @@
 # Define custom function directory
 ARG FUNCTION_DIR="/function"
 
-FROM node:20-buster as build-image
+FROM node:20-buster AS build-image
 
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR

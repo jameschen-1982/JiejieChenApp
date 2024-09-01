@@ -47,26 +47,3 @@ export default async function PostRoute({ params }: { params: { slug: string } }
   if (data.data.length === 0) return <h2>no post found</h2>;
   return <Post data={data.data[0]} />;
 }
-
-export async function generateStaticParams() {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-  const path = `/articles`;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-  const articleResponse = await fetchAPI(
-    path,
-    {
-    },
-    options
-  );
-
-  return articleResponse.data.map(
-    (article: {
-      attributes: {
-        slug: string;
-        category: {
-          slug: string;
-        };
-      };
-    }) => ({ slug: article.attributes.slug })
-  );
-}

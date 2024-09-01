@@ -1,6 +1,5 @@
 import { fetchAPI } from "@/app/utils/fetch-api";
 import React from "react";
-import ArticleSelect from "@/components/article-select";
 
 async function fetchSideMenuData(filter: string) {
   try {
@@ -81,23 +80,23 @@ export default async function LayoutRoute({
     </section>
   );
 }
-
-export async function generateStaticParams() {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-  const path = `/articles`;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-  const articleResponse = await fetchAPI(
-    path,
-    {
-    },
-    options
-  );
-
-  return articleResponse.data.map(
-    (article: {
-      attributes: {
-        slug: string;
-      };
-    }) => ({ slug: article.attributes.slug })
-  );
-}
+//
+// export async function generateStaticParams() {
+//   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+//   const path = `/articles`;
+//   const options = { headers: { Authorization: `Bearer ${token}` } };
+//   const articleResponse = await fetchAPI(
+//     path,
+//     {
+//     },
+//     options
+//   );
+//
+//   return articleResponse.data.map(
+//     (article: {
+//       attributes: {
+//         slug: string;
+//       };
+//     }) => ({ slug: article.attributes.slug })
+//   );
+// }
