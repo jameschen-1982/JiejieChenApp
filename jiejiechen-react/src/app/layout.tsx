@@ -33,7 +33,7 @@ export default function RootLayout({
         <Auth0AuthProvider>
           <Header/>
           <div className="flex-grow">
-            {children}
+              {children}
           </div>
           <Footer/>
         </Auth0AuthProvider>

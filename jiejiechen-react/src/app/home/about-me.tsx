@@ -4,7 +4,7 @@ import React from "react";
 export default function AboutMe() {
   return <>
     { /* About Me */}
-    <section className="flex my-auto lg:min-h-[calc(100vh-170px)] items-center justify-center p-5">
+    <section className="bg-white flex my-auto lg:min-h-[calc(100vh)] items-center justify-center p-5">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-10 md:px-10">
           <div>
@@ -19,9 +19,9 @@ export default function AboutMe() {
               <a href="https://github.com/jameschen-1982"><Github className="hover:text-blue-500"/></a>
             </div>
           </div>
-          <div>
+          <div className="mx-auto">
             <img src="/assets/profile.jpg"
-                 alt="James Chen Profile Photo" className="md:size-96 size-72 rounded-full "/>
+                 alt="James Chen Profile Photo" className="md:size-96 size-72 rounded-full"/>
           </div>
         </div>
       </div>

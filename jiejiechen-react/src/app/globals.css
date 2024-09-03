@@ -28,6 +28,25 @@
 /*  }*/
 /*}*/
 
+/**
+ * Custom CSS
+ *
+ * Add this to your Tailwind CSS file,
+ * or to a separate, custom CSS file.
+ *
+ * Update the background images to suit
+ * your project.
+ */
+.bg-projects {
+  background: url(/assets/bg-projects.jpg) center center no-repeat;
+  background-attachment: fixed;
+}
+
+.bg-contact-me {
+  background: url(/assets/bg-contact-me.jpg) center center no-repeat;
+  background-attachment: fixed;
+}
+
 
 /******************************************* 
   Rich Text Styles
