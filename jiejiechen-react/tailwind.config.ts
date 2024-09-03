@@ -21,5 +21,8 @@ const config: Config = {
     daisyui,
     tailwindcssforms
   ],
+  daisyui: {
+    darkTheme: false,
+  },
 };
 export default config;
