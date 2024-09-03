@@ -85,14 +85,27 @@ export default function HeaderComponent() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 <a
-                  href="https://www.jiejiechen.com"
+                  href="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
                   About Me
                 </a>
               </div>
               <div className="py-6">
-                <Login isMobile={true} />
+                <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#projects"  onClick={() => setMobileMenuOpen(false)}>
+                  Projects
+                </Link>
+              </div>
+              <div className="py-6">
+                <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#blogs"  onClick={() => setMobileMenuOpen(false)}>
+                  Blog
+                </Link>
+              </div>
+              <div className="py-6">
+                <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#contact_me"  onClick={() => setMobileMenuOpen(false)}>
+                  Contact Me
+                </Link>
               </div>
             </div>
           </div>

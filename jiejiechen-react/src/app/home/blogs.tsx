@@ -4,52 +4,7 @@ import PostList from "@/components/post-list";
 import {Meta} from "@/models/meta";
 import Loader from "@/components/loader";
 
-export default function Blogs() {
-  const [meta, setMeta] = useState<Meta | undefined>();
-  const [data, setData] = useState<any>([]);
-  const [isLoading, setLoading] = useState(true);
-
-  const fetchData = useCallback(async (start: number, limit: number) => {
-    setLoading(true);
-    try {
-      const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-      const path = `/articles`;
-      const urlParamsObject = {
-        sort: { createdAt: "desc" },
-        populate: {
-          cover: { fields: ["url"] },
-          category: { populate: "*" },
-          authorsBio: {
-            populate: "*",
-          },
-        },
-        pagination: {
-          start: start,
-          limit: limit,
-        },
-      };
-      const options = { headers: { Authorization: `Bearer ${token}` } };
-      const responseData = await fetchAPI(path, urlParamsObject, options);
-
-      if (start === 0) {
-        setData(responseData.data);
-      } else {
-        setData((prevData: any[] ) => [...prevData, ...responseData.data]);
-      }
-
-      setMeta(responseData.meta);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData(0, Number(process.env.NEXT_PUBLIC_PAGE_LIMIT));
-  }, [fetchData]);
-
-  if (isLoading) return <Loader />;
+export default function Blogs({data} : {data: any}) {
   
   return <>
     { /* Blog */}
