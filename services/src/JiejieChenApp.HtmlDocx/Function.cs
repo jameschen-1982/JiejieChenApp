@@ -100,7 +100,7 @@ public class Functions
         var preSignedUrlRequest = new GetPreSignedUrlRequest
         {
             BucketName = "c2j",
-            Key = "resume/JCHEN SEEK Resume.docx",
+            Key = "resume/JAMES - 0430227759.docx",
             Expires = _timeProvider.GetUtcNow().AddMinutes(10).DateTime
         };
 
