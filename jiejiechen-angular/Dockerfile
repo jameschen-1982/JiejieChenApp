@@ -1,56 +1,30 @@
-# Define custom function directory
-ARG FUNCTION_DIR="/function"
+## STAGE 1: Build Container
+FROM node:18-slim AS builder
 
-FROM node:20-buster-slim as build-image
+WORKDIR /app
 
-# Include global arg in this stage of the build
-ARG FUNCTION_DIR
+COPY package*.json ./
 
-# Install build dependencies
-RUN apt-get update && \
-    apt-get install -y \
-    g++ \
-    make \
-    cmake \
-    unzip \
-    libcurl4-openssl-dev \
-    autoconf \
-    libtool \
-    python3
+RUN yarn install
 
-# Copy function code
-RUN mkdir -p ${FUNCTION_DIR}
-COPY . ${FUNCTION_DIR}
+COPY . .
 
-WORKDIR ${FUNCTION_DIR}
+RUN yarn build
 
-# Install Node.js dependencies
-RUN npm install
+## STAGE 2: Production container
+FROM node:18-slim AS runner
+COPY --from=public.ecr.aws/awsguru/aws-lambda-adapter:0.8.4 /lambda-adapter /opt/extensions/lambda-adapter
+ENV PORT=4001 NODE_ENV=production
+ENV AWS_LWA_ENABLE_COMPRESSION=true
 
-# Install the runtime interface client
-RUN npm install aws-lambda-ric
+# Container Working path
+WORKDIR /app
 
-RUN npm run build -- --configuration=production
+# Copy builded code
+COPY --from=builder /app/run.sh ./run.sh
+COPY --from=builder /app/dist ./dist
+# Solve static files not found issue (missing "background" in path)
+COPY --from=builder /app/dist/angular-app/browser ./dist/angular-app/browser/background
 
-# Grab a fresh slim copy of the image to reduce the final size
-FROM node:20-buster-slim
-
-# Required for Node runtimes which use npm@8.6.0+ because
-# by default npm writes logs under /home/.npm and Lambda fs is read-only
-ENV NPM_CONFIG_CACHE=/tmp/.npm
-
-# Include global arg in this stage of the build
-ARG FUNCTION_DIR
-
-# Set working directory to function root directory
-WORKDIR ${FUNCTION_DIR}
-
-# Copy in the built dependencies
-COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
-
-ENV NODE_ENV production
-
-# Set runtime interface client as default command for the container runtime
-ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
-# Pass the name of the function handler as an argument to the runtime
-CMD ["lambda.handler"]
+# Start the application
+CMD exec ./run.sh

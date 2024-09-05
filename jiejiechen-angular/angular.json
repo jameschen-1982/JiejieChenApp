@@ -26,7 +26,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/jiejiechenapp",
+            "outputPath": "dist/angular-app",
+            "baseHref": "/background/",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [

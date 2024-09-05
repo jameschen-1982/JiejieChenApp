@@ -23,11 +23,7 @@ module "db" {
   monitoring_interval    = "30"
   monitoring_role_name   = "MyRDSMonitoringRole"
   create_monitoring_role = true
-
-  tags = {
-    Owner       = "user"
-    Environment = "dev"
-  }
+  
 
   # DB subnet group
   create_db_subnet_group = false
