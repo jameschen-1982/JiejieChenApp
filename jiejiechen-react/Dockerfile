@@ -1,7 +1,7 @@
 FROM public.ecr.aws/docker/library/node:20.9.0 AS builder
 WORKDIR /app
 COPY . .
-RUN npm install
+RUN npm install --force # Adding force because of nextjs 15-rc0 and react-rc
 RUN npm run build
 
 FROM public.ecr.aws/docker/library/node:20.9.0-slim AS runner

@@ -2,6 +2,7 @@
 const nextConfig = {
   // compress: false,
   output: 'standalone',
+  swrDelta: 31536000,
   experimental: {
     // esmExternals: false, // optional
     // externalDir: true, // optional
