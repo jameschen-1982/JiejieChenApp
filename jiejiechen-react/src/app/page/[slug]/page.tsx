@@ -3,7 +3,7 @@ import {fetchAPI} from "@/app/utils/fetch-api";
 import PageComponent from "@/components/page";
 
 export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const revalidate = 60;
 
 async function getPostBySlug(slug: string) {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;

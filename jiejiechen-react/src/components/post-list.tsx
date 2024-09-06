@@ -45,12 +45,12 @@ export default function PostList({
             <div className="mt-8 flex items-center gap-x-4">
               {imageUrl && <img src={imageUrl} alt="avatar" className="h-10 w-10 rounded-full bg-gray-50"/>}
               <div className="text-sm leading-6">
-                <p className="font-semibold text-gray-900">
+                <div className="font-semibold text-gray-900">
                   <div>
                     <span className="inset-0"></span>
                     {authorsBio?.name}
                   </div>
-                </p>
+                </div>
                 <p className="text-gray-600">Author</p>
               </div>
             </div>
