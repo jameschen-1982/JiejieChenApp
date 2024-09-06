@@ -42,15 +42,6 @@ export default function Post({ data }: { data: Article }) {
 
   return (
     <article className="space-y-8">
-      {imageUrl && (
-        <Image
-          src={imageUrl}
-          alt="article cover image"
-          width={400}
-          height={400}
-          className="w-full h-96 object-cover rounded-lg"
-        />
-      )}
       <div className="space-y-6">
         <h1 className="leading-tight text-5xl font-bold ">{title}</h1>
         <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center">
@@ -70,7 +61,15 @@ export default function Post({ data }: { data: Article }) {
           </div>
         </div>
       </div>
-
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt="article cover image"
+          width={400}
+          height={400}
+          className="w-full h-96 object-cover rounded-lg"
+        />
+      )}
       <div>
         <p>{description}</p>
 

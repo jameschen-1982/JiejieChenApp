@@ -8,5 +8,6 @@ public record Lead
         public string? Phone { get; set; }
         public string? Company { get; set; }
         public string? Message { get; set; }
+        public string? IsCvDownload { get; set; }
         public DateTime? TimeSubmitted { get; set; }
 }

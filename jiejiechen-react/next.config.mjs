@@ -7,7 +7,6 @@ const nextConfig = {
     // esmExternals: false, // optional
     // externalDir: true, // optional
     // outputFileTracingRoot: path.join(__dirname, '../../'), // monorepo option
-    appDir: true
   },
   images: {
     remotePatterns: [
