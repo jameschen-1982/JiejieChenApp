@@ -14,11 +14,20 @@ import {
 import Login from './login'
 import {usePathname} from "next/navigation";
 import Link from "next/link";
+import DownloadCvPopupComponent from "@/components/download-cv-popup";
 
 export default function HeaderComponent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDownloadCvPopup, setOpenDownloadCvPopup] = useState<boolean>(false);
   const pathname = usePathname();
   
+  const popupDownloadCv = () => {
+    setOpenDownloadCvPopup(true);
+  };
+  
+  const closeDownloadCv = () => {
+    setOpenDownloadCvPopup(false);
+  }
   
   return (
     <header className="bg-white sticky top-0">
@@ -54,9 +63,7 @@ export default function HeaderComponent() {
           </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <form action="/api/download-cv" method="POST">
-            <button type="submit" className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Download CV</button>
-          </form>
+          <button onClick={popupDownloadCv} className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Download CV</button>
         </div>
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -111,6 +118,7 @@ export default function HeaderComponent() {
           </div>
         </DialogPanel>
       </Dialog>
+      <DownloadCvPopupComponent open={openDownloadCvPopup} onClose={closeDownloadCv} />
     </header>
   )
 }

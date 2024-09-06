@@ -88,14 +88,33 @@ public class Functions
             var response = await _notificationService.PublishAsync(request);
             _logger.LogInformation("Sent notification {status}", response.HttpStatusCode);
         }
-        
-        return new APIGatewayHttpApiV2ProxyResponse
+
+        bool.TryParse(lead.IsCvDownload, out var isDownloadCsv);
+        return new APIGatewayHttpApiV2ProxyResponse()
         {
-            StatusCode = 201
+            StatusCode = 200,
+            Body = JsonSerializer.Serialize(new LeadSubmissionResponse
+            {
+                CvDownloadUrl = isDownloadCsv ? await GenerateCvDownloadUrl() : null
+            })
         };
     }
 
     private async Task<APIGatewayHttpApiV2ProxyResponse> DocxFromS3()
+    {
+        var preSignedUrl = await GenerateCvDownloadUrl();
+
+        return new APIGatewayHttpApiV2ProxyResponse
+        {
+            StatusCode = 302,
+            Headers = new Dictionary<string, string>
+            {
+                { "Location", preSignedUrl }
+            }
+        };
+    }
+
+    private async Task<string> GenerateCvDownloadUrl()
     {
         var preSignedUrlRequest = new GetPreSignedUrlRequest
         {
@@ -106,14 +125,7 @@ public class Functions
 
         string preSignedUrl = await _amazonS3.GetPreSignedURLAsync(preSignedUrlRequest);
 
-        return new APIGatewayHttpApiV2ProxyResponse
-        {
-            StatusCode = 302,
-            Headers = new Dictionary<string, string>
-            {
-                { "Location", preSignedUrl }
-            }
-        };
+        return preSignedUrl;
     }
 
     private static async Task<APIGatewayHttpApiV2ProxyResponse> DocxFromHtml()

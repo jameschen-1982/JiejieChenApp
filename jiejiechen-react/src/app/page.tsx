@@ -2,8 +2,8 @@ import React from "react";
 import AboutMe from "@/app/home/about-me";
 import Projects from "@/app/home/projects";
 import Blogs from "@/app/home/blogs";
-import ContactMe from "@/app/home/contact-me";
 import {fetchAPI} from "@/app/utils/fetch-api";
+import ContactMe from "@/app/home/contact-me";
 
 export default async function Home() {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -30,7 +30,7 @@ export default async function Home() {
       <AboutMe/>
       <Projects/>
       <Blogs data={responseData.data}/>
-      <ContactMe/>
+      <ContactMe />
     </div>
   );
 }
