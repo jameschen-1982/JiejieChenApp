@@ -82,7 +82,7 @@ builder.Services.AddDbContext<DemoContext>(options =>
 });
 
 // Set up auto mapper
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(_ => { }, typeof(Program));
 
 // Set up fluent validation
 builder.Services.AddValidatorsFromAssembly(typeof(EnquiryFormValidator).Assembly);

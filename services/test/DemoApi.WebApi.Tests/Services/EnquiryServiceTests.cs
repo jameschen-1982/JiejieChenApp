@@ -5,6 +5,7 @@ using DemoApi.Models;
 using DemoApi.Services;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 
 namespace DemoApi.WebApi.Tests.Services
@@ -22,7 +23,7 @@ namespace DemoApi.WebApi.Tests.Services
                 .Options;
             
             _context = new DemoContext(options);
-            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new EnquiryFormProfile())));
+            _mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile(new EnquiryFormProfile()), NullLoggerFactory.Instance));
             _service = new EnquiryService(_context, _mapper);
         }
 
