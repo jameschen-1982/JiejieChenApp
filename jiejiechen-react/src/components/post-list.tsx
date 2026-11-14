@@ -17,14 +17,14 @@ export default function PostList({
       className="mx-auto mt-3 grid max-w-2xl grid-cols-1 gap-x-2 gap-y-16 border-t border-gray-200 pt-3 sm:mt-3 sm:pt-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
       {articles.map((article) => {
         const imageUrl = getStrapiMedia(
-          article.attributes.cover.data?.attributes.url
+          article.attributes.cover?.data?.attributes.url
         );
 
-        const category = article.attributes.category.data?.attributes;
-        const authorsBio = article.attributes.authorsBio.data?.attributes;
+          const category = article.attributes.category?.data?.attributes;
+          const authorsBio = article.attributes.authorsBio?.data?.attributes;
 
         const avatarUrl = getStrapiMedia(
-          authorsBio?.avatar.data.attributes.url
+            authorsBio?.avatar?.data?.attributes.url
         );
         return (<article key={article.id} className="flex max-w-xl flex-col items-start justify-between">
           <Link href={`/blog/${article.attributes.slug}`}>

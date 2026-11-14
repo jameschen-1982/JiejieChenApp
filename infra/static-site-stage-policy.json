@@ -1,0 +1,20 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowExistingCloudFrontDistributionRead",
+      "Effect": "Allow",
+      "Principal": { "Service": "cloudfront.amazonaws.com" },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::cjj-prod-fu4c-static-site/*",
+      "Condition": {
+        "StringEquals": {
+          "AWS:SourceArn": [
+            "arn:aws:cloudfront::773631419510:distribution/E1DQTNP78PXVF5",
+            "arn:aws:cloudfront::773631419510:distribution/EMKZKS39L7D0R"
+          ]
+        }
+      }
+    }
+  ]
+}

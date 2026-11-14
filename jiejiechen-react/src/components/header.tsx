@@ -33,10 +33,10 @@ export default function HeaderComponent() {
     <header className="bg-white sticky top-0">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Jiejie Chen</span>
             <img alt="JC logo" src="/assets/favicon-32x32.png" className="h-8 w-auto"/>
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -49,9 +49,9 @@ export default function HeaderComponent() {
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/">
+          <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/">
             About Me
-          </a>
+          </Link>
           <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#projects">
             Projects
           </Link>
@@ -91,13 +91,13 @@ export default function HeaderComponent() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <a
+                <Link
                   href="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   About Me
-                </a>
+                </Link>
               </div>
               <div className="py-6">
                 <Link className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer" href="/#projects"  onClick={() => setMobileMenuOpen(false)}>
