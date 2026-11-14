@@ -89,6 +89,9 @@ resource "aws_lambda_function" "jiejiechen_cms" {
   image_uri    = "${aws_ecr_repository.jiejiechen-cms.repository_url}:latest"
   package_type = "Image"
   memory_size  = 1024
+  # Retired RDS makes hosted CMS unusable. Prevent its old Strapi image from
+  # executing on the public API until a reviewed replacement is deployed.
+  reserved_concurrent_executions = 0
 
   environment {
     variables = {

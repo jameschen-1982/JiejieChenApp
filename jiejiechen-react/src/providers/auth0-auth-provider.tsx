@@ -26,6 +26,16 @@ export interface CustomOidcState {
 } 
 
 export default function Auth0AuthProvider({children}: { children: React.ReactNode }) {
+  useEffect(() => {
+    // Remove tokens left by the previous persistent OIDC store after upgrading.
+    const key = `oidc.user:${process.env.NEXT_PUBLIC_IDP_AUTHORITY}:${process.env.NEXT_PUBLIC_IDP_CLIENT_ID}`;
+    try {
+      window.localStorage.removeItem(key);
+    } catch {
+      // Storage can be unavailable in restricted browser contexts.
+    }
+  }, []);
+
   return (
     <AuthProvider {...oidcConfig}>
       {children}
