@@ -1,9 +1,6 @@
 name: cicd pipeline
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -126,5 +123,8 @@ jobs:
             -var cms_domain_name="${{ vars.TF_VAR_CMS_DOMAIN_NAME }}" \
             -var api_domain_certificate_arn="${{ vars.TF_VAR_API_DOMAIN_CERTIFICATE_ARN }}" \
             -var cms_database_host="${{ vars.TF_VAR_CMS_DATABASE_HOST }}" \
-            -var cms_database_secret_name="${{ vars.TF_VAR_CMS_DATABASE_SECRET_NAME }}"
+            -var cms_database_secret_name="${{ vars.TF_VAR_CMS_DATABASE_SECRET_NAME }}" \
+            -var enable_static_site="${{ vars.TF_VAR_ENABLE_STATIC_SITE || 'false' }}" \
+            -var static_site_distribution_id="${{ vars.TF_VAR_STATIC_SITE_DISTRIBUTION_ID }}" \
+            -var static_site_preview_distribution_id="${{ vars.TF_VAR_STATIC_SITE_PREVIEW_DISTRIBUTION_ID }}"
           
