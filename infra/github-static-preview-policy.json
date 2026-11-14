@@ -14,10 +14,13 @@
       "Resource": "arn:aws:s3:::cjj-prod-fu4c-static-site/*"
     },
     {
-      "Sid": "InvalidatePreviewDistribution",
+      "Sid": "InvalidateStaticSiteDistributions",
       "Effect": "Allow",
       "Action": "cloudfront:CreateInvalidation",
-      "Resource": "arn:aws:cloudfront::773631419510:distribution/EMKZKS39L7D0R"
+      "Resource": [
+        "arn:aws:cloudfront::773631419510:distribution/EMKZKS39L7D0R",
+        "arn:aws:cloudfront::773631419510:distribution/E1DQTNP78PXVF5"
+      ]
     }
   ]
 }
