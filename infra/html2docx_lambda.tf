@@ -70,19 +70,6 @@ resource "aws_iam_role" "html2docx_lambda_role" {
 
 data "aws_iam_policy_document" "html2docx_lambda_policy_doc" {
   statement {
-    sid    = "AllowInvokingLambdas"
-    effect = "Allow"
-
-    resources = [
-      "arn:aws:lambda:*:*:function:*"
-    ]
-
-    actions = [
-      "lambda:InvokeFunction"
-    ]
-  }
-
-  statement {
     sid    = "AllowCreatingLogGroups"
     effect = "Allow"
 
@@ -114,7 +101,7 @@ data "aws_iam_policy_document" "html2docx_lambda_policy_doc" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:s3:::c2j/resume/*"
+      "arn:aws:s3:::c2j/resume/JAMES - 0430227759.docx"
     ]
 
     actions = [

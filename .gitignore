@@ -56,3 +56,13 @@ _ReSharper.*
 bin
 obj
 packages
+
+# Never publish local credentials, database exports, or Terraform state.
+**/.env
+**/.env.*
+!**/.env.example
+**/*.tfstate
+**/*.tfstate.*
+**/*.dump
+# The static site now uses npm ci and the committed npm lockfile.
+/jiejiechen-react/yarn.lock

@@ -11,6 +11,13 @@ resource "aws_apigatewayv2_stage" "default" {
   name        = "$default"
   auto_deploy = true
 
+  # Public form endpoint: throttle before the Lambda writes to DynamoDB/SNS.
+  route_settings {
+    route_key              = "POST /api/leads"
+    throttling_burst_limit = 20
+    throttling_rate_limit  = 5
+  }
+
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.main_api_gw.arn
 

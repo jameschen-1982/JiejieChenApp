@@ -31,7 +31,7 @@ jobs:
           NEXT_PUBLIC_POSTHOG_KEY: ${{ vars.NEXT_PUBLIC_POSTHOG_KEY }}
           NEXT_PUBLIC_POSTHOG_HOST: ${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}
         run: |
-          npm install --force --no-package-lock
+          npm ci --legacy-peer-deps
           npm run build
           test -f out/index.html
           test -f out/404.html
