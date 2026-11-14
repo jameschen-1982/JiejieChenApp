@@ -1,0 +1,206 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "attributes": {
+        "title": "Circuit Training 2",
+        "description": "My second circuit training",
+        "slug": "circuit-training-2",
+        "createdAt": "2024-09-01T02:46:18.925Z",
+        "updatedAt": "2024-09-01T20:53:55.299Z",
+        "publishedAt": "2024-09-01T02:46:21.403Z",
+        "cover": {
+          "data": {
+            "id": 10,
+            "attributes": {
+              "url": "https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/pexels_nataromualdo_6308947_6f0b20ad91.jpg",
+              "name": "pexels-nataromualdo-6308947.jpg",
+              "alternativeText": null
+            }
+          }
+        },
+        "category": {
+          "data": {
+            "id": 1,
+            "attributes": {
+              "name": "Aviation",
+              "slug": "aviation"
+            }
+          }
+        },
+        "authorsBio": {
+          "data": {
+            "id": 1,
+            "attributes": {
+              "name": "James Chen",
+              "avatar": {
+                "data": {
+                  "id": 1,
+                  "attributes": {
+                    "url": "https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/IMG_1474_3e25b5f3bd.jpg",
+                    "name": "IMG_1474.jpg",
+                    "alternativeText": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "blocks": [
+          {
+            "id": 1,
+            "__component": "shared.rich-text",
+            "body": "After the initial training for climbing, descending, turning and stall, I had overcame the nervousness and left out some mind space to do what I needed to do: aviate, navigate, communicate. At this stage, I was like on a P platter who knew how to use steering wheel, gas and break to operate a car but very little experienced. \n\nThe centre piece of learning flying is to be able to land an aircraft. This was my second circuit training. A circuit training is basically flying a circle around the airport (Camden Airport). The pattern is called a circuit, which comprises five legs: upwind, crosswind, downwind, base and final.\n![692ac6_afca0814f8a8419fb510d850c961a6e9~mv2.gif](https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/692ac6_afca0814f8a8419fb510d850c961a6e9_mv2_f56393227b.gif)\n\nIn Cameden Airport, the altitude of a circuit pattern is 1300ft. When the aircraft arrives the end of the downwind leg, which posits 45 degree in diagnal towards the beginning of the runway, I should turn 90 degree to the base leg and reduce my power to idle. The aircraft will start to descend on the base leg to about 800ft, where I need to turn another 90 degree onto the final leg aligning with the runway. On the final leg, I need to keep my airspeed around 63 knots and aim for the white strips at the beginning of the runway by controlling the stick and rudder. When the aircraft reaches the runway and above 1 metre, I need to pull my stick to raise the nose. The aircraft is a tail-dragger (ACA Citabria). I was being trained to do a three-wheel-landing, which needs to raise the nose high to land the aircraft on the three wheels (two main wheels at front and small one at the back). This is the hardest part. I still don't have a good perception on when to initiate the pull. \n\nOnce I am able to handle a landing, according to the syllabus, I will soon need to pass a radio communication test and then attempt to fly solo. Flying solo doesn't mean I have the licence but it will be a big milestone for anyone who is passion about aviation.\n\nHope this post help for anyone who is also interested. Happy and safe flying.\n"
+          },
+          {
+            "id": 1,
+            "__component": "shared.video-embed",
+            "url": "https://www.youtube.com/watch?v=f0h0eBfDHJo&list=PL-x7fkvrgfOq8RnAzd3QjXhepJZcTc_zc&index=11"
+          }
+        ],
+        "seo": {
+          "id": 1,
+          "metaTitle": "Circuit Training",
+          "metaDescription": "This is my second circuit training on an ACA Citabria."
+        }
+      }
+    },
+    {
+      "id": 2,
+      "attributes": {
+        "title": "Welcome to my site",
+        "description": "This is a description about why this site was built.",
+        "slug": "welcome-to-my-site",
+        "createdAt": "2024-09-01T21:02:05.849Z",
+        "updatedAt": "2024-09-10T14:59:30.339Z",
+        "publishedAt": "2024-09-01T21:21:06.239Z",
+        "cover": {
+          "data": {
+            "id": 12,
+            "attributes": {
+              "url": "https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/pexels_pixabay_270404_7b58314bd9.jpg",
+              "name": "pexels-pixabay-270404.jpg",
+              "alternativeText": null
+            }
+          }
+        },
+        "category": {
+          "data": {
+            "id": 2,
+            "attributes": {
+              "name": "Web Development",
+              "slug": "web-development"
+            }
+          }
+        },
+        "authorsBio": {
+          "data": {
+            "id": 1,
+            "attributes": {
+              "name": "James Chen",
+              "avatar": {
+                "data": {
+                  "id": 1,
+                  "attributes": {
+                    "url": "https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/IMG_1474_3e25b5f3bd.jpg",
+                    "name": "IMG_1474.jpg",
+                    "alternativeText": null
+                  }
+                }
+              }
+            }
+          }
+        },
+        "blocks": [
+          {
+            "id": 2,
+            "__component": "shared.rich-text",
+            "body": "This is a side project of mine, which was built for several purposes. First, it showcases my skills as a full stack developer. To build and operate a site from scratch, it requires a variety of skills:\n- Front-end, in which case I used both Angular and NextJS\n- Back-end. My long-term skills is .NET.\n- Cloud hosting: AWS Lambda, DynamoDb, Api Gateway, RDS, SNS, S3, CloudFlare\n- CMS: I used a freebie: [Strapi](https://strapi.io/). It supports the use cases which are commonly available in commercial SaaS headless CMS which charges a hell lot of money. \n- CICD: Github Action\n- Copyrighting: ChatGPT\n- Stock images: [Pexels](https://www.pexels.com)\n\nBecause the site runs on lambdas, the running cost is near zero. This is suitable for a personal website which doesn't have a lot of traffic but you still want it to be available 24x7 and of low maintenance. Lambdas are serverless so I don't need to worry about the host being down. It's always on guaranteed by AWS. See the architecture diagram:\n![jiejiechen diagram.drawio (1).png](https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/jiejiechen_diagram_drawio_1_5b5ff2776a.png)\n\nThe second reason to have this site is to provide a generic templates for myself to use when I need to build something similar. My aim is to keep updating the codebase to make it refresh and relevant. The site contains some common features which are often see in many websites:\n- CMS\n- Enquiry Form\n- Backend Logic in .NET\n\nPotentially, I can add more common features such as payment and authentication (which exists but hidden). \n\nThe last but not least reason is to use this site to provide some technical education on full stack development. I'm planning to write more articles and potentially video recordings about the changes happening on this site. Currently, the site is public on [Github](https://github.com/jameschen-1982/JiejieChenApp/). Once I write up more articles, they will be published as blog on this site.\n\nShould you be interested on anything, you can also [leave a message](/#contact_me) and I'll reach out to you.\n\nHappy coding!"
+          }
+        ],
+        "seo": {
+          "id": 2,
+          "metaTitle": "Welcome to my site",
+          "metaDescription": "This article talks about why I created this site."
+        }
+      }
+    }
+  ],
+  "pages": [
+    {
+      "id": 1,
+      "attributes": {
+        "slug": "standards-australia-store-project",
+        "heading": "Standards Australia Store Project",
+        "description": null,
+        "shortName": null,
+        "locale": "en",
+        "createdAt": "2024-09-01T00:55:56.622Z",
+        "updatedAt": "2024-09-01T19:29:17.871Z",
+        "publishedAt": "2024-09-01T00:55:58.572Z",
+        "metadata": {
+          "id": 1,
+          "metaTitle": "Standards Australia Store Project",
+          "metaDescription": "An e-commerce website and online document reader for 90,000 standards"
+        },
+        "contentSections": [
+          {
+            "id": 1,
+            "__component": "sections.rich-text",
+            "body": "![pexels-photo-248877.jpeg](https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/pexels_photo_248877_d5eeb8f074.jpeg)\n[Standards Australia Ltd](https://www.standards.org.au) is the peak non-governmental organization in Australia responsible for developing and maintaining national standards across various industries. Established in 1922, the organization plays a crucial role in ensuring safety, quality, and efficiency in products, services, and systems. It works in collaboration with industry, government, and consumer groups to develop standards that meet the needs of the Australian market and align with international best practices. As a member of the International Organization for Standardization (ISO), Standards Australia also contributes to global standardization efforts.\n \n[Standards Australia Store](https://store.standards.org.au) provides the access to 90,000 standards and documents to millions of customers in Australia and abroad. It provides a user-friendly experience to purchase digital or physical copy of the standards. It also offers subscription-based products such as National Construction Code (NCC) which offers more than 300 documents at a discounted yearly rate. \n\n[Standards Australia Store](https://store.standards.org.au) uses the latest tech stack including .NET 8 and Azure. The develop teams have adopted agile methodology and release incremental improvements on a fortnightly basis. My role as a lead full stack developer involved technical solutioning, adopting agile methodologies and people management.\n\nFor more details, please feel free to [leave a message](/#contact_me) for a quick chat. "
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "attributes": {
+        "slug": "everlight-control-centre-project",
+        "heading": "Everlight Control Centre Project",
+        "description": null,
+        "shortName": null,
+        "locale": "en",
+        "createdAt": "2024-09-01T03:21:24.689Z",
+        "updatedAt": "2024-09-01T20:04:54.343Z",
+        "publishedAt": "2024-09-01T03:21:26.015Z",
+        "metadata": {
+          "id": 2,
+          "metaTitle": "Everlight Control Centre Project",
+          "metaDescription": "A portal for radiographers to track their orders"
+        },
+        "contentSections": [
+          {
+            "id": 2,
+            "__component": "sections.rich-text",
+            "body": "![pexels-pixabay-40568.jpg](https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/pexels_pixabay_40568_f4a005c9b5.jpg)\n\nEverlight Radiology is a leading provider of teleradiology services, offering high-quality radiology reporting and consultation to healthcare providers around the world. The company specializes in providing 24/7 diagnostic imaging services, leveraging a global network of experienced radiologists to deliver rapid and accurate interpretations of medical images. \n\nControl Centre is Everlight's initiative to reduce the time radiographers in tracking their orders in Everlight so that they can spend more time with their patients. Control Centre provides a portal on which radiolographers can view their orders in real time. Changes to their orders are reflected on the page without the need for a refresh, reducing the chance of a delay caused by outdated information on the page. It also integrates with the platforms behind. By levraging AWS cloud service, Control Centre offers high availability and high scalability in case there is a surge of traffic or disruption. \n\nFor more information, please [leave a message](/#contact_me) for a quick chat. "
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "attributes": {
+        "slug": "propertyme-app-project",
+        "heading": "PropertyMe App",
+        "description": null,
+        "shortName": null,
+        "locale": "en",
+        "createdAt": "2024-09-01T03:22:09.559Z",
+        "updatedAt": "2024-09-01T20:22:57.185Z",
+        "publishedAt": "2024-09-01T03:22:10.875Z",
+        "metadata": {
+          "id": 3,
+          "metaTitle": "PropertyMe App",
+          "metaDescription": "A portal for real estate agents to manage their rental properties"
+        },
+        "contentSections": [
+          {
+            "id": 3,
+            "__component": "sections.rich-text",
+            "body": "![pexels-thelazyartist-1642125.jpg](https://cjj-prod-fu4c-strapi-assets.s3.ap-southeast-2.amazonaws.com/pexels_thelazyartist_1642125_905f1f1a6f.jpg)\nPropertyMe is a leading property management software platform designed to meet the needs of modern property managers, real estate agencies, and landlords. Established with the goal of streamlining property management processes, PropertyMe offers a comprehensive suite of tools that simplify tasks such as trust accounting, maintenance tracking, tenant communication, and financial reporting. \n\nThe platform's cloud-based nature ensures that users can access their data and manage their properties from anywhere, making it a flexible solution for busy professionals in the real estate industry. With a focus on innovation and user experience, PropertyMe continues to evolve, incorporating new features and integrations that enhance its utility and ease of use.\n\nThe app's dashboard provides a comprehensive overview of key metrics and tasks, enabling users to stay on top of their responsibilities and make informed decisions. Additionally, the web app's ability to integrate with other software tools and services ensures that PropertyMe can fit seamlessly into existing workflows, reducing the need for manual data entry and minimizing errors.\n\nFor more information, please [leave a message](/#contact_me) for a quick chat. "
+          }
+        ]
+      }
+    }
+  ]
+}

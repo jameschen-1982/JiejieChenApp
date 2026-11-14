@@ -1,0 +1,46 @@
+name: Publish static site
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'jiejiechen-react/**'
+      - '.github/workflows/static-site.yml'
+
+jobs:
+  publish:
+    if: vars.STATIC_SITE_BUCKET != '' && vars.STATIC_DISTRIBUTION_ID != ''
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build static HTML from the committed content snapshot
+        working-directory: jiejiechen-react
+        env:
+          NEXT_PUBLIC_API_HOST: https://${{ vars.TF_VAR_MAIN_DOMAIN_NAME }}
+          NEXT_PUBLIC_SPA_HOST: https://${{ vars.TF_VAR_MAIN_DOMAIN_NAME }}
+          NEXT_PUBLIC_IDP_AUTHORITY: ${{ vars.NEXT_PUBLIC_IDP_AUTHORITY }}
+          NEXT_PUBLIC_IDP_CLIENT_ID: ${{ vars.NEXT_PUBLIC_IDP_CLIENT_ID }}
+          NEXT_PUBLIC_IDP_AUDIENCE: ${{ vars.NEXT_PUBLIC_IDP_AUDIENCE }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ vars.NEXT_PUBLIC_POSTHOG_KEY }}
+          NEXT_PUBLIC_POSTHOG_HOST: ${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}
+        run: |
+          npm install --force --no-package-lock
+          npm run build
+          test -f out/index.html
+          test -f out/404.html
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::773631419510:role/jiejiechen-static-site-github
+          role-session-name: static-site-preview
+          aws-region: ap-southeast-2
+      - name: Upload static output
+        run: aws s3 sync jiejiechen-react/out/ "s3://${{ vars.STATIC_SITE_BUCKET }}/" --delete
+      - name: Purge cached HTML and assets
+        run: aws cloudfront create-invalidation --distribution-id "${{ vars.STATIC_DISTRIBUTION_ID }}" --paths '/*'

@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // compress: false,
-  output: 'standalone',
-  swrDelta: 31536000,
+  output: 'export',
   experimental: {
     // esmExternals: false, // optional
     // externalDir: true, // optional
     // outputFileTracingRoot: path.join(__dirname, '../../'), // monorepo option
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'http',

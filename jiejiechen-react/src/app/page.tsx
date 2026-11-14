@@ -6,7 +6,6 @@ import {fetchAPI} from "@/app/utils/fetch-api";
 import ContactMe from "@/app/home/contact-me";
 
 export default async function Home() {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
   const urlParamsObject = {
     sort: { createdAt: "desc" },
@@ -22,8 +21,7 @@ export default async function Home() {
       limit: 3,
     },
   };
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-  const responseData = await fetchAPI(path, urlParamsObject, options);
+  const responseData = await fetchAPI(path, urlParamsObject);
   
   return (
     <div>

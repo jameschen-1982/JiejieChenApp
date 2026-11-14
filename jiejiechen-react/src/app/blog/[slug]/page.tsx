@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
 import {fetchAPI} from "@/app/utils/fetch-api";
 import Post from "@/components/post";
+import { notFound } from "next/navigation";
+import { snapshotSlugs } from "@/app/utils/snapshot-api";
 
-export const dynamic = 'force-static';
-export const revalidate = 60;
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return snapshotSlugs('articles').map((slug) => ({ slug }));
+}
 
 async function getPostBySlug(slug: string) {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
   const urlParamsObject = {
     filters: { slug },
@@ -17,25 +21,24 @@ async function getPostBySlug(slug: string) {
       blocks: { populate: '*' },
     },
   };
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-  const response = await fetchAPI(path, urlParamsObject, options);
+  const response = await fetchAPI(path, urlParamsObject);
   return response;
 }
 
 async function getMetaData(slug: string) {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
   const urlParamsObject = {
     filters: { slug },
     populate: { seo: { populate: '*' } },
   };
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-  const response = await fetchAPI(path, urlParamsObject, options);
+  const response = await fetchAPI(path, urlParamsObject);
   return response.data;
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const meta = await getMetaData(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const meta = await getMetaData(slug);
+  if (!meta.length) return {};
   const metadata = meta[0].attributes.seo;
 
   return {
@@ -44,9 +47,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function PostRoute({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function PostRoute({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const data = await getPostBySlug(slug);
-  if (data.data.length === 0) return <h2>no post found</h2>;
+  if (data.data.length === 0) notFound();
   return <Post data={data.data[0]} />;
 }
