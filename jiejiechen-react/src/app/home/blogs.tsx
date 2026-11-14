@@ -1,8 +1,5 @@
-import React, {useCallback, useEffect, useState} from "react";
-import {fetchAPI} from "@/app/utils/fetch-api";
+import React from "react";
 import PostList from "@/components/post-list";
-import {Meta} from "@/models/meta";
-import Loader from "@/components/loader";
 
 export default function Blogs({data} : {data: any}) {
   

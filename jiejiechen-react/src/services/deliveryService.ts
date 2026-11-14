@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 const getUser = () => {
-  const oidcStorage = window.localStorage.getItem(`oidc.user:${process.env.NEXT_PUBLIC_IDP_AUTHORITY}:${process.env.NEXT_PUBLIC_IDP_CLIENT_ID}`);
+  const oidcStorage = window.sessionStorage.getItem(`oidc.user:${process.env.NEXT_PUBLIC_IDP_AUTHORITY}:${process.env.NEXT_PUBLIC_IDP_CLIENT_ID}`);
   if (!oidcStorage) {
     return null;
   }

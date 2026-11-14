@@ -1,0 +1,22 @@
+{
+  "ResponseHeadersPolicyConfig": {
+    "Name": "jiejiechen-static-security-20261114",
+    "Comment": "Security headers for static pages; CSP deliberately limits structural injection without breaking Next static hydration or OIDC",
+    "SecurityHeadersConfig": {
+      "FrameOptions": { "Override": true, "FrameOption": "SAMEORIGIN" },
+      "ReferrerPolicy": { "Override": true, "ReferrerPolicy": "strict-origin-when-cross-origin" },
+      "ContentTypeOptions": { "Override": true },
+      "StrictTransportSecurity": { "Override": true, "AccessControlMaxAgeSec": 31536000 },
+      "ContentSecurityPolicy": {
+        "Override": true,
+        "ContentSecurityPolicy": "object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests"
+      }
+    },
+    "CustomHeadersConfig": {
+      "Quantity": 1,
+      "Items": [
+        { "Header": "Permissions-Policy", "Value": "camera=(), microphone=(), geolocation=()", "Override": true }
+      ]
+    }
+  }
+}

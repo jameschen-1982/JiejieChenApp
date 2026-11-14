@@ -1,5 +1,4 @@
 import React, {FormEvent, useRef, useState} from "react";
-import {EnquiryForm} from "@/models/enquiry-form";
 import {postForm} from "@/services/deliveryService";
 
 interface LeadForm {
@@ -12,7 +11,7 @@ export default function LeadForm({ onLeadSubmission, includeMessage, buttonText,
   const [formInSubmission, setFormInSubmission] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  async function onSubmit(event: FormEvent<EnquiryForm>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setFormInSubmission(true);
 

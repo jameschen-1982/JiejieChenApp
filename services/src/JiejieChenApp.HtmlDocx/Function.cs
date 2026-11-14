@@ -67,7 +67,15 @@ public class Functions
     [HttpApi(LambdaHttpMethod.Post, "/api/leads")]
     public async Task<APIGatewayHttpApiV2ProxyResponse> CreateLead([FromBody]Lead lead, ILambdaContext context)
     {
-        _logger.LogInformation("Received lead: {@context}", context);
+        var error = LeadInputValidator.Validate(lead);
+        if (error is not null)
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                StatusCode = 400,
+                Headers = new Dictionary<string, string> { ["Content-Type"] = "application/json" },
+                Body = JsonSerializer.Serialize(new { error })
+            };
+
         lead.TimeSubmitted = _timeProvider.GetUtcNow().DateTime;
         
         await _dynamoDbContext.SaveAsync(lead);

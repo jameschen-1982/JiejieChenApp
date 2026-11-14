@@ -10,7 +10,8 @@ const oidcConfig = {
   redirect_uri: process.env.NEXT_PUBLIC_SPA_HOST + "/oidc-callback",
   scope: "openid profile email",
   extraQueryParams: { audience: process.env.NEXT_PUBLIC_IDP_AUDIENCE },
-  userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.localStorage}) : undefined,
+  // Tokens must not survive the browser session. Keep the callback in the same tab.
+  userStore: typeof window !== 'undefined' ? new WebStorageStateStore({store: window.sessionStorage}) : undefined,
   onSigninCallback: (_user: unknown | void): void => {
     window.history.replaceState(
       {},
