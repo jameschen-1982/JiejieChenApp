@@ -21,10 +21,9 @@ ENV AWS_LWA_ENABLE_COMPRESSION=true
 WORKDIR /app
 
 # Copy builded code
-COPY --from=builder /app/run.sh ./run.sh
 COPY --from=builder /app/dist ./dist
 # Solve static files not found issue (missing "background" in path)
 COPY --from=builder /app/dist/angular-app/browser ./dist/angular-app/browser/background
 
 # Start the application
-CMD exec ./run.sh
+CMD ["node", "dist/angular-app/server/server.mjs"]

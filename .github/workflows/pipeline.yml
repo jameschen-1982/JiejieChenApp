@@ -32,6 +32,21 @@ jobs:
           npm run test:headless
           npm run build
 
+      - name: Smoke-test default Lambda container command
+        working-directory: jiejiechen-angular
+        run: |
+          docker build --pull -t angular-ssr-smoke .
+          docker run -d --name angular-ssr-smoke -p 127.0.0.1:14001:4001 angular-ssr-smoke
+          trap 'docker rm -f angular-ssr-smoke' EXIT
+          for attempt in {1..30}; do
+            if curl --max-time 10 -fsS -o /tmp/angular-ssr.html http://127.0.0.1:14001/background; then
+              break
+            fi
+            sleep 2
+          done
+          grep -q 'Portfolio' /tmp/angular-ssr.html
+          curl -fsSI http://127.0.0.1:14001/background | grep -qi 'content-security-policy:'
+
       - name: Save run-time dependencies for packaging
         working-directory: jiejiechen-angular
         run: cp -R dist ../package
