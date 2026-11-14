@@ -66,3 +66,5 @@ packages
 **/*.dump
 # The static site now uses npm ci and the committed npm lockfile.
 /jiejiechen-react/yarn.lock
+# Angular builds now use npm ci with a committed lockfile as well.
+/jiejiechen-angular/yarn.lock
