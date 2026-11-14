@@ -1,20 +1,17 @@
 'use client'
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { usePostHog } from 'posthog-js/react';
 
 export default function PostHogPageView() : null {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const posthog = usePostHog();
   useEffect(() => {
     // Track pageviews
     if (pathname && posthog) {
-      let url = window.origin + pathname
-      if (searchParams.toString()) {
-        url = url + `?${searchParams.toString()}`
-      }
+      // Never send OIDC callback codes, state, or other query secrets to analytics.
+      const url = window.origin + pathname
       posthog.capture(
         '$pageview',
         {
@@ -22,7 +19,7 @@ export default function PostHogPageView() : null {
         }
       )
     }
-  }, [pathname, searchParams, posthog])
+  }, [pathname, posthog])
 
   return null
 }
