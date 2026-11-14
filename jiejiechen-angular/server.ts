@@ -9,6 +9,17 @@ import bootstrap from './src/main.server';
 export function app(): express.Express {
   const server = express();
   server.disable('x-powered-by');
+  server.use((_req, res, next) => {
+    res.set({
+      'Content-Security-Policy': "object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'SAMEORIGIN',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Strict-Transport-Security': 'max-age=31536000',
+      'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    });
+    next();
+  });
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
