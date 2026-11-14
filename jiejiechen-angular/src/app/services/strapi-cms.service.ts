@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Injectable, inject} from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {map} from "rxjs/operators";
 import {Observable} from "rxjs";
@@ -9,9 +9,7 @@ import {Convert, HomePage} from "../models/cms/home-page";
   providedIn: 'root'
 })
 export class StrapiCmsService {
-
-  constructor(private http: HttpClient) {
-  }
+  private readonly http = inject(HttpClient);
 
   getHomePageContent(): Observable<HomePage> {
     return this.http

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { DateTime } from 'luxon';
 import {Title} from "@angular/platform-browser";
 import {CommonModule} from "@angular/common";
@@ -6,17 +6,18 @@ import {RouterOutlet} from "@angular/router";
 import {StrapiCmsService} from "./services/strapi-cms.service";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    imports: [CommonModule, RouterOutlet],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  private readonly titleService = inject(Title);
+  private readonly strapiCmsService = inject(StrapiCmsService);
   title: string = "James Chen - Team Lead, Application Architect, Full Stack Software Developer - 0430 227 759";
   homePageContent$ = this.strapiCmsService.getHomePageContent();
 
-  constructor(private titleService:Title, private strapiCmsService: StrapiCmsService) {
+  constructor() {
     this.titleService.setTitle(this.title);
   }
 

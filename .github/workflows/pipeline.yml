@@ -14,11 +14,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install run-time dependencies
         working-directory: jiejiechen-angular
-        run: yarn install --prod --frozen-lockfile
+        run: npm ci --omit=dev --legacy-peer-deps
 
       - name: Save run-time dependencies for packaging
         working-directory: jiejiechen-angular
@@ -27,10 +27,10 @@ jobs:
       - name: Build
         working-directory: jiejiechen-angular
         run: |
-          yarn install --frozen-lockfile
-          yarn lint
-          yarn test:headless
-          yarn build
+          npm ci --legacy-peer-deps
+          npm run lint
+          npm run test:headless
+          npm run build
 
       - name: Save run-time dependencies for packaging
         working-directory: jiejiechen-angular

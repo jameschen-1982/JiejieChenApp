@@ -1,0 +1,9 @@
+.git
+node_modules
+yarn.lock
+.angular
+dist
+coverage
+.env
+.env.*
+*.log
