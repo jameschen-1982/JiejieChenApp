@@ -10,7 +10,7 @@ on:
 
 jobs:
   publish:
-    if: vars.STATIC_SITE_BUCKET != '' && vars.STATIC_DISTRIBUTION_ID != ''
+    if: vars.STATIC_SITE_BUCKET != '' && vars.STATIC_DISTRIBUTION_ID != '' && vars.STATIC_PREVIEW_DISTRIBUTION_ID != ''
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -42,5 +42,7 @@ jobs:
           aws-region: ap-southeast-2
       - name: Upload static output
         run: aws s3 sync jiejiechen-react/out/ "s3://${{ vars.STATIC_SITE_BUCKET }}/" --delete
-      - name: Purge cached HTML and assets
+      - name: Purge cached preview HTML and assets
+        run: aws cloudfront create-invalidation --distribution-id "${{ vars.STATIC_PREVIEW_DISTRIBUTION_ID }}" --paths '/*'
+      - name: Purge cached production HTML and assets
         run: aws cloudfront create-invalidation --distribution-id "${{ vars.STATIC_DISTRIBUTION_ID }}" --paths '/*'
